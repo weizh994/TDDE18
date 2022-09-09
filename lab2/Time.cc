@@ -47,6 +47,15 @@ time& operator>>(istream& is, time& t)//should use iteration!
     return is;
 }
 
+//Edwin edit: adding cout
+ostream operator<<(ostream os, time consta& t)
+{
+os<<t.hour << ":"<<t.minute<<":"<<"t.second";
+return os;
+
+}
+//end of cout
+
 void error(){
     cerr << "ERROR: Illegal input!"<<endl;
 }

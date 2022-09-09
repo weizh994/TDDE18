@@ -26,6 +26,8 @@ bool operator>=(TIME const& t1,TIME const& t2);
 bool operator==(TIME const& t1,TIME const& t2);
 bool operator!=(TIME const& t1,TIME const& t2);
 time& operator>>(istream& is,TIME& t);
+ostream operator<<(ostream os, time consta& t);//edwin edit--> declared cout function.
 void error();
-//edwin edit
+
+
 #endif //TDDE18_TIME_H
