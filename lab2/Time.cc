@@ -1,11 +1,12 @@
 #include<iostream>
 #include "Time.h"
+#include<string>
 using namespace std;
 
-time& operator>>(istream& is, time& t)//should use iteration!
+TIME& operator>>(istream& is, TIME& t)//should use iteration!
 {
-    //is>>t.hour>>t.minute>>t.second;
-    while(is>>t.hour){
+    is>>t.hour>>t.minute>>t.second;
+    /*while(is>>t.hour){
         if(is.bad()||is.eof()||is.fail()){
             is.clear();
             is.ignore(999999,'\n');
@@ -44,8 +45,17 @@ time& operator>>(istream& is, time& t)//should use iteration!
             break;
         }
     }
-    return is;
+    return is;*/
 }
+
+//Edwin edit: adding cout
+ostream& operator<<(ostream& os, TIME const& t)
+{
+os<<t.hour << ":"<<t.minute<<":"<<t.second;
+return os;
+
+}
+//end of cout
 
 void error(){
     cerr << "ERROR: Illegal input!"<<endl;

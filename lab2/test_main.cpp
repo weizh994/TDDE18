@@ -1,8 +1,12 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "Time.h"
-
+#include<iostream>
+#include<typeinfo>
+using namespace std;
 TEST_CASE("Time Test"){
-    time t;
-    REQUIRE(t.typeof(time));
+    TIME t;
+    //REQUIRE(t.typeof(TIME));
+    cin>>t;
+    cout<<t<<endl;
 }
