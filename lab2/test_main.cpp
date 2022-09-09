@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_MAIN
-#include "catch.hh"
+#include "catch.hpp"
 #include "time.h"
 
 TEST_CASE("Time Test"){
