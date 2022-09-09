@@ -27,10 +27,39 @@ bool is_valid(int const &t, bool const &is_hour)
 
 TIME operator+(TIME const &t, int const &n){
     TIME tmp{t}
-    tmp.second+=n;
+    tmp.second += n;
     modify(tmp);
     return tmp;
 }
+
+TIME operator-(TIME const &t, int const &n){
+    TIME tmp{t};
+    tmp.second -= n;
+    modify(tmp);
+    return tmp;
+}
+
+TIME &operator++(TIME &t){
+    ++t.second;
+    modify(t);
+    return t;
+}
+
+TIME operator--(TIME &t, int){
+    TIME tmp{t};
+    --t.second;
+    modify(t);
+    return tmp;
+}
+
+bool operator==(TIME const &t1, TIME const &t2){
+    return (t1.hour == t2.hour) && (t1.minute == t2.minute) && (t1.second == t2.second);
+}
+
+bool operator!=(TIME const &t1, TIME const &t2){
+    return !(t1 == t2);
+}
+
 istream &operator>>(istream &is, TIME &t) // should use iteration!
 {
     is >> t.hour >> t.minute >> t.second;
@@ -90,14 +119,22 @@ void error()
 }
 void modify(TIME &t){
     while (!is_valid()){
-        if(t.second>59){
-            t.minute=t.second/60+t.minute;
-            t.second%=60;
-        } else if(t.minute>59){
-            t.hour=t.minute/60+t.hour;
-            t.minute%=60;
-        } else if(t.hour>23){
-            t.hour%=24;
+        if(t.second > 59){
+            t.minute = t.second / 60 + t.minute;
+            t.second %= 60;
+        } else if(t.second < 0){
+            t.minute = t.minute - t.second * (-1) / 60;
+            t.second = t.second * (-1) % 60;
+        } else if(t.minute > 59){
+            t.hour = t.minute/60+t.hour;
+            t.minute %= 60;
+        } else if(t.minute < 0){
+            t.hour = t.hour - t.minute * (-1) / 60;
+            t.minute = t.minute * (-1) % 60;
+        } else if(t.hour > 23){
+            t.hour %= 24;
+        } else{
+            t.hour = t.hour * (-1) % 24;
         }
     }
 }
