@@ -1,12 +1,6 @@
 #include<iostream>
-#include "time.h"
+#include "Time.h"
 using namespace std;
-struct time
-{
-	int hour;
-	int minute;
-	int second;
-};
 
 time& operator>>(istream& is, time& t)//should use iteration!
 {

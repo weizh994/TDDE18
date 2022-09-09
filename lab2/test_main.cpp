@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "time.h"
+#include "Time.h"
 
 TEST_CASE("Time Test"){
     time t;
