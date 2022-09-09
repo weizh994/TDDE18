@@ -25,6 +25,12 @@ bool is_valid(int const &t, bool const &is_hour)
     }
 }
 
+TIME operator+(TIME const &t, int const &n){
+    TIME tmp{t}
+    tmp.second+=n;
+    modify(tmp);
+    return tmp;
+}
 istream &operator>>(istream &is, TIME &t) // should use iteration!
 {
     is >> t.hour >> t.minute >> t.second;
@@ -80,5 +86,18 @@ ostream &operator<<(ostream &os, TIME const &t)
 
 void error()
 {
-    cerr << "ERROR: Illegal input!" << endl;
+    cerr << "ERROR: Illegal Time!" << endl;
+}
+void modify(TIME &t){
+    while (!is_valid()){
+        if(t.second>59){
+            t.minute=t.second/60+t.minute;
+            t.second%=60;
+        } else if(t.minute>59){
+            t.hour=t.minute/60+t.hour;
+            t.minute%=60;
+        } else if(t.hour>23){
+            t.hour%=24;
+        }
+    }
 }
