@@ -4,6 +4,8 @@
 
 #ifndef TDDE18_TIME_H
 #define TDDE18_TIME_H
+#include<iostream>
+#include <string>
 struct TIME
 {
     int hour;

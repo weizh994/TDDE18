@@ -3,6 +3,8 @@
 #include "Time.h"
 
 TEST_CASE("Time Test"){
-    time t;
-    REQUIRE(t.typeof(time));
+    TIME t;
+    REQUIRE(t.typeof(TIME));
+    cin>>t;
+    cout<<t<<endl;
 }

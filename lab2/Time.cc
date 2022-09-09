@@ -1,11 +1,12 @@
 #include<iostream>
 #include "Time.h"
+#include<string>
 using namespace std;
 
 time& operator>>(istream& is, time& t)//should use iteration!
 {
-    //is>>t.hour>>t.minute>>t.second;
-    while(is>>t.hour){
+    is>>t.hour>>t.minute>>t.second;
+    /*while(is>>t.hour){
         if(is.bad()||is.eof()||is.fail()){
             is.clear();
             is.ignore(999999,'\n');
@@ -44,13 +45,13 @@ time& operator>>(istream& is, time& t)//should use iteration!
             break;
         }
     }
-    return is;
+    return is;*/
 }
 
 //Edwin edit: adding cout
-ostream operator<<(ostream os, time consta& t)
+ostream operator<<(ostream os, TIME consta& t)
 {
-os<<t.hour << ":"<<t.minute<<":"<<"t.second";
+os<<t.hour << ":"<<t.minute<<":"<<t.second;
 return os;
 
 }
