@@ -22,7 +22,7 @@ int main(){
 	string word;
 	int num = 0;
 	double sum = 0.0;
-	string shortest_word,longest_word;w
+	string shortest_word,longest_word;
 	long shortest_word_length,longest_word_length;
 	if(read_file >> word){//first word
 		shortest_word_length = word.size();
