@@ -27,4 +27,5 @@ bool operator==(TIME const& t1,TIME const& t2);
 bool operator!=(TIME const& t1,TIME const& t2);
 time& operator>>(istream& is,TIME& t);
 void error();
+//edwin edit
 #endif //TDDE18_TIME_H
