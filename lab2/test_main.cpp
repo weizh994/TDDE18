@@ -9,4 +9,5 @@ TEST_CASE("Time Test"){
     //REQUIRE(t.typeof(TIME));
     cin>>t;
     cout<<t<<endl;
+
 }

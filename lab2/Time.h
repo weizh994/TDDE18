@@ -16,7 +16,7 @@ struct TIME
 bool is_valid(TIME const &t);
 bool is_valid(int const &t, bool const &is_hour);
 string to_string(TIME const &t);
-bool is_am(TIME const &t);
+bool is_am(TIME const &t);// made, with first checking valid time then checking less than 11.
 TIME operator+(TIME const &t, int const &n); // Do we need n+t?
 TIME operator-(TIME const &t, int const &n); // Do we need n-t?
 TIME &operator+=(TIME &t, int const &n);

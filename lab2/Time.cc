@@ -24,7 +24,24 @@ bool is_valid(int const &t, bool const &is_hour)
             return false;
     }
 }
-
+bool is_am(TIME const &t)
+{   if(is_valid(t))
+   {
+         if(t.hour<=11)
+            {
+                return true;
+            }
+         else
+            {
+                return false;
+            }
+   }
+   else
+    {
+        error();
+        return false;
+   }
+}
 istream &operator>>(istream &is, TIME &t) // should use iteration!
 {
     is >> t.hour >> t.minute >> t.second;
