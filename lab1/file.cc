@@ -22,22 +22,22 @@ int main(){
 	string word;
 	int num = 0;
 	double sum = 0.0;
-	string shortest_word,longest_word;
-	long shortest,longest;
+	string shortest_word,longest_word;w
+	long shortest_word_length,longest_word_length;
 	if(read_file >> word){//first word
-		shortest = word.size();
-		longest = word.size();
+		shortest_word_length = word.size();
+		longest_word_length = word.size();
 		num++;
 	}
 	while(read_file >> word){
 		num++;
 		sum+=word.size();
 		if(word.size() < shortest){
-			shortest=word.size();
+			shortest_word_length=word.size();
 			shortest_word = word;
 		}
-		if(word.size() > longest){
-			longest=word.size();
+		if(word.size() > longest_word_length){
+			longest_word_length=word.size();
 			longest_word = word;
 		}
 	}
@@ -47,10 +47,10 @@ int main(){
 	if(num!=0){
 		cout << "The shortest word was \""
 				 << shortest_word << "\" with "
-				 << shortest << " character(s)." << endl;
+				 << shortest_word_length << " character(s)." << endl;
 		cout << "The longest word was \""
 				 << longest_word << "\" with "
-				 << longest << " character(s)." << endl;
+				 << longest_word_length << " character(s)." << endl;
 		cout << "The average length was "
 				 << sum/num << " character(s)." << endl;
 	}

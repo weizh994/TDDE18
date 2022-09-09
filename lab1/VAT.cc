@@ -1,7 +1,6 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-#define _IGNORE cin.ignore(9999999,'\n')
 using namespace std;
 
 // TODO: Complementary work: Seperate the different parts of the
@@ -31,38 +30,38 @@ int main(){
 	cout << setfill(' ') << left << setw(input_lenth) << enter_f_p << ": ";
 	float first_price;
 	cin >> first_price;
-	_IGNORE;
+	cin.ignore(9999999,'\n');
 	while(first_price<0.0){
 		cerr << "ERROR: First price must be at least 0 (zero) SEK" << endl;
 		cout << left << setw(input_lenth) << "Enter first price" << ": ";
 		cin >> first_price;
-		_IGNORE;
+		cin.ignore(9999999,'\n');
 	}
 	cout << left << setw(input_lenth) << "Enter last prise" << ": ";
 	float last_price;
 	cin >> last_price;
-	_IGNORE;
+	cin.ignore(9999999,'\n');
 	while(last_price<first_price){
 		cerr << "ERROR: Last price must be at least "
 				 << fixed << setprecision(2) << first_price << " SEK" << endl;
 		cout << left << setw(input_lenth) << "Enter last prise" << ": ";
 		cin >> last_price;
-		_IGNORE;
+		cin.ignore(9999999,'\n');
 	}
 	cout << left << setw(input_lenth) << "Enter stride" << ": ";
 	float stride;
 	cin >> stride;
-	_IGNORE;
+	cin.ignore(9999999,'\n');
 	while(stride < 0.01){
 		cerr << "ERROR: Stride must be at least 0.01" << endl;
 		cout << left << setw(input_lenth) << "Enter stride" << " :";
 		cin >> stride;
-		_IGNORE;
+		cin.ignore(9999999,'\n');
 	}
 	cout << left << setw(input_lenth) << "Enter tax percent" << ": ";
 	float tax_percent;
 	cin >> tax_percent;
-	_IGNORE;
+	cin.ignore(9999999,'\n');
 	//INPUT PART OVER
 
 	cout << "\nTAX TABLE\n"
