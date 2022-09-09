@@ -1,11 +1,33 @@
-#include<iostream>
+#include <iostream>
 #include "Time.h"
-#include<string>
+#include <string>
 using namespace std;
 
-TIME& operator>>(istream& is, TIME& t)//should use iteration!
+bool is_valid(TIME const &t)
 {
-    is>>t.hour>>t.minute>>t.second;
+    return is_valid(t.hour, true) && is_valid(t.minute, false) && is_valid(t.second, false);
+}
+bool is_valid(int const &t, bool const &is_hour)
+{
+    if (is_hour)
+    {
+        if (t <= 23 && t >= 0)
+            return true;
+        else
+            return false;
+    }
+    else
+    {
+        if (t <= 59 && t >= 0)
+            return true;
+        else
+            return false;
+    }
+}
+
+istream &operator>>(istream &is, TIME &t) // should use iteration!
+{
+    is >> t.hour >> t.minute >> t.second;
     /*while(is>>t.hour){
         if(is.bad()||is.eof()||is.fail()){
             is.clear();
@@ -48,15 +70,15 @@ TIME& operator>>(istream& is, TIME& t)//should use iteration!
     return is;*/
 }
 
-//Edwin edit: adding cout
-ostream& operator<<(ostream& os, TIME const& t)
+// Edwin edit: adding cout
+ostream &operator<<(ostream &os, TIME const &t)
 {
-os<<t.hour << ":"<<t.minute<<":"<<t.second;
-return os;
-
+    os << t.hour << ":" << t.minute << ":" << t.second;
+    return os;
 }
-//end of cout
+// end of cout
 
-void error(){
-    cerr << "ERROR: Illegal input!"<<endl;
+void error()
+{
+    cerr << "ERROR: Illegal input!" << endl;
 }

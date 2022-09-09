@@ -4,7 +4,7 @@
 
 #ifndef TDDE18_TIME_H
 #define TDDE18_TIME_H
-#include<iostream>
+#include <iostream>
 #include <string>
 using namespace std;
 struct TIME
@@ -13,24 +13,24 @@ struct TIME
     int minute;
     int second;
 };
-bool is_valid();
-string to_string();
-bool is_am();
-TIME operator+(TIME const& t,int const& n);//Do we need n+t?
-TIME operator-(TIME const& t,int const& n);//Do we need n-t?
-TIME& operator+=(TIME& t,int const& n);
-TIME& operator-=(TIME& t,int const& n);
-TIME& operator++(TIME& t);
-TIME operator--(TIME& t,int);
-bool operator<(TIME const& t1,TIME const& t2);
-bool operator>(TIME const& t1,TIME const& t2);
-bool operator<=(TIME const& t1,TIME const& t2);
-bool operator>=(TIME const& t1,TIME const& t2);
-bool operator==(TIME const& t1,TIME const& t2);
-bool operator!=(TIME const& t1,TIME const& t2);
-TIME& operator>>(istream& is,TIME& t);
-ostream& operator<<(ostream& os, TIME const& t);//edwin edit--> declared cout function.
+bool is_valid(TIME const &t);
+bool is_valid(int const &t, bool const &is_hour);
+string to_string(TIME const &t);
+bool is_am(TIME const &t);
+TIME operator+(TIME const &t, int const &n); // Do we need n+t?
+TIME operator-(TIME const &t, int const &n); // Do we need n-t?
+TIME &operator+=(TIME &t, int const &n);
+TIME &operator-=(TIME &t, int const &n);
+TIME &operator++(TIME &t);
+TIME operator--(TIME &t, int);
+bool operator<(TIME const &t1, TIME const &t2);
+bool operator>(TIME const &t1, TIME const &t2);
+bool operator<=(TIME const &t1, TIME const &t2);
+bool operator>=(TIME const &t1, TIME const &t2);
+bool operator==(TIME const &t1, TIME const &t2);
+bool operator!=(TIME const &t1, TIME const &t2);
+istream &operator>>(istream &is, TIME &t);
+ostream &operator<<(ostream &os, TIME const &t); // edwin edit--> declared cout function.
 void error();
 
-
-#endif //TDDE18_TIME_H
+#endif // TDDE18_TIME_H
