@@ -3,7 +3,7 @@
 #include<string>
 using namespace std;
 
-time& operator>>(istream& is, time& t)//should use iteration!
+TIME& operator>>(istream& is, TIME& t)//should use iteration!
 {
     is>>t.hour>>t.minute>>t.second;
     /*while(is>>t.hour){
@@ -49,7 +49,7 @@ time& operator>>(istream& is, time& t)//should use iteration!
 }
 
 //Edwin edit: adding cout
-ostream operator<<(ostream os, TIME consta& t)
+TIME operator<<(ostream os, TIME const& t)
 {
 os<<t.hour << ":"<<t.minute<<":"<<t.second;
 return os;

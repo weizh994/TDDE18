@@ -6,6 +6,7 @@
 #define TDDE18_TIME_H
 #include<iostream>
 #include <string>
+using namespace std;
 struct TIME
 {
     int hour;
@@ -15,20 +16,20 @@ struct TIME
 bool is_valid();
 string to_string();
 bool is_am();
-time operator+(TIME const& t,int const& n);//Do we need n+t?
-time operator-(TIME const& t,int const& n);//Do we need n-t?
-time& operator+=(TIME& t,int const& n);
-time& operator-=(TIME& t,int const& n);
-time& operator++(TIME& t);
-time operator--(TIME& t,int);
+TIME operator+(TIME const& t,int const& n);//Do we need n+t?
+TIME operator-(TIME const& t,int const& n);//Do we need n-t?
+TIME& operator+=(TIME& t,int const& n);
+TIME& operator-=(TIME& t,int const& n);
+TIME& operator++(TIME& t);
+TIME operator--(TIME& t,int);
 bool operator<(TIME const& t1,TIME const& t2);
 bool operator>(TIME const& t1,TIME const& t2);
 bool operator<=(TIME const& t1,TIME const& t2);
 bool operator>=(TIME const& t1,TIME const& t2);
 bool operator==(TIME const& t1,TIME const& t2);
 bool operator!=(TIME const& t1,TIME const& t2);
-time& operator>>(istream& is,TIME& t);
-ostream operator<<(ostream os, time consta& t);//edwin edit--> declared cout function.
+TIME& operator>>(istream& is,TIME& t);
+TIME operator<<(ostream os, TIME const& t);//edwin edit--> declared cout function.
 void error();
 
 
