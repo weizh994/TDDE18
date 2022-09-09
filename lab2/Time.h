@@ -29,7 +29,7 @@ bool operator>=(TIME const& t1,TIME const& t2);
 bool operator==(TIME const& t1,TIME const& t2);
 bool operator!=(TIME const& t1,TIME const& t2);
 TIME& operator>>(istream& is,TIME& t);
-TIME operator<<(ostream os, TIME const& t);//edwin edit--> declared cout function.
+ostream& operator<<(ostream& os, TIME const& t);//edwin edit--> declared cout function.
 void error();
 
 

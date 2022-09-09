@@ -49,7 +49,7 @@ TIME& operator>>(istream& is, TIME& t)//should use iteration!
 }
 
 //Edwin edit: adding cout
-TIME operator<<(ostream os, TIME const& t)
+ostream& operator<<(ostream& os, TIME const& t)
 {
 os<<t.hour << ":"<<t.minute<<":"<<t.second;
 return os;
