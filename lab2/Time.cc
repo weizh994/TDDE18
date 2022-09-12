@@ -44,6 +44,17 @@ TIME &operator++(TIME &t){
     modify(t);
     return t;
 }
+TIME &operator--(TIME &t){
+    --t.second;
+    modify(t);
+    return t;
+}
+TIME operator++(TIME &t, int){
+    TIME tmp{t};
+    ++t.second;
+    modify(t);
+    return tmp;
+}
 
 TIME operator--(TIME &t, int){
     TIME tmp{t};
@@ -62,7 +73,18 @@ bool operator!=(TIME const &t1, TIME const &t2){
 
 istream &operator>>(istream &is, TIME &t) // should use iteration!
 {
-    is >> t.hour >> t.minute >> t.second;
+    do{
+        is>>t.hour;
+    }
+    while (is_valid(t.hour, true));
+    do{
+        is>>t.minute;
+    }
+    while(is_valid(t.minute, false));
+    do{
+        is>>t.second;
+    }
+    while(is_valid(t.second, false));
     /*while(is>>t.hour){
         if(is.bad()||is.eof()||is.fail()){
             is.clear();

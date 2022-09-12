@@ -7,6 +7,6 @@ using namespace std;
 TEST_CASE("Time Test"){
     TIME t;
     //REQUIRE(t.typeof(TIME));
-    cin>>t;
+    CHECK(cin>>t);
     cout<<t<<endl;
 }
