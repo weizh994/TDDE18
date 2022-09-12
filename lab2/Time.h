@@ -34,5 +34,6 @@ bool operator!=(TIME const &t1, TIME const &t2);//Done
 istream &operator>>(istream &is, TIME &t);//need to be check
 ostream &operator<<(ostream &os, TIME const &t); // edwin edit--> declared cout function.
 void error();
+void ignore(int n = 1024, char stop = ":")
 void modify(TIME &t);
 #endif // TDDE18_TIME_H

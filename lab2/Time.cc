@@ -84,14 +84,17 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
     do
     {
         is >> t.hour;
+        ignore();
     } while (!is_valid(t.hour, true));
     do
     {
         is >> t.minute;
+        ignore();
     } while (!is_valid(t.minute, false));
     do
     {
         is >> t.second;
+        ignore();
     } while (!is_valid(t.second, false));
     /*while(is>>t.hour){
         if(is.bad()||is.eof()||is.fail()){
@@ -147,6 +150,12 @@ void error()
 {
     cerr << "ERROR: Illegal Time!" << endl;
 }
+
+void ignore(int n, char stop){
+    cin.clear();
+    cin.ignore(n,stop)
+}
+
 void modify(TIME &t)
 {
     while (!is_valid(t))
