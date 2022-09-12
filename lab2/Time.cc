@@ -84,58 +84,19 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
     do
     {
         is >> t.hour;
-        // cin.ignore(1024, ':' || '\n');
+        cin.ignore(1024, ':');
     } while (!is_valid(t.hour, true));
     do
     {
         is >> t.minute;
-        // cin.ignore(1024, ':' || '\n');
+        cin.ignore(1024, ':');
     } while (!is_valid(t.minute, false));
     do
     {
         is >> t.second;
-        // cin.ignore(1024, ':' || '\n');
+        // cin.ignore(1024, ":");
     } while (!is_valid(t.second, false));
-    /*while(is>>t.hour){
-        if(is.bad()||is.eof()||is.fail()){
-            is.clear();
-            is.ignore(999999,'\n');
-            error();
-        }
-        else if((t.hour > 23) || (t.hour < 0)){
-            error();
-        }
-        else{
-            break;
-        }
-    }
-    while(is>>t.minute){
-        if(is.bad()||is.eof()||is.fail()){
-            is.clear();
-            is.ignore(999999,'\n');
-            error();
-        }
-        else if((t.minute > 59) || (t.minute < 0)){
-            error();
-        }
-        else{
-            break;
-        }
-    }
-    while(is>>t.second){
-        if(is.bad()||is.eof()||is.fail()){
-            is.clear();
-            is.ignore(999999,'\n');
-            error();
-        }
-        else if((t.second > 59) || (t.second < 0)){
-            error();
-        }
-        else{
-            break;
-        }
-    }
-    return is;*/
+    return is;
 }
 
 // Edwin edit: adding cout
