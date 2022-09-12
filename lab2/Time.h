@@ -23,10 +23,10 @@ TIME &operator+=(TIME &t, int const &n);
 TIME &operator-=(TIME &t, int const &n);
 TIME &operator++(TIME &t);
 TIME operator--(TIME &t, int);
-bool operator<(TIME const &t1, TIME const &t2);
-bool operator>(TIME const &t1, TIME const &t2);
-bool operator<=(TIME const &t1, TIME const &t2);
-bool operator>=(TIME const &t1, TIME const &t2);
+bool operator<(TIME const &t1, TIME const &t2);//done   
+bool operator>(TIME const &t1, TIME const &t2);//done
+bool operator<=(TIME const &t1, TIME const &t2);//done
+bool operator>=(TIME const &t1, TIME const &t2);//done
 bool operator==(TIME const &t1, TIME const &t2);
 bool operator!=(TIME const &t1, TIME const &t2);
 istream &operator>>(istream &is, TIME &t);
