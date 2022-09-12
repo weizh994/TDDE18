@@ -13,27 +13,26 @@ struct TIME
     int minute;
     int second;
 };
-bool is_valid(TIME const &t);//Done
-bool is_valid(int const &t, bool const &is_hour);//overload with int
+bool is_valid(TIME const &t);                     // Done
+bool is_valid(int const &t, bool const &is_hour); // overload with int
 string to_string(TIME const &t);
 bool is_am(TIME const &t);
 TIME operator+(TIME const &t, int const &n); // Do we need n+t?//Done
 TIME operator-(TIME const &t, int const &n); // Do we need n-t?//Done
-//TIME &operator+=(TIME &t, int const &n);
-//TIME &operator-=(TIME &t, int const &n);
-TIME &operator++(TIME &t);//Done
-TIME &operator--(TIME &t);//Done
-TIME operator++(TIME &t, int);//Done
-TIME operator--(TIME &t, int);//Done
+// TIME &operator+=(TIME &t, int const &n);
+// TIME &operator-=(TIME &t, int const &n);
+TIME &operator++(TIME &t);     // Done
+TIME &operator--(TIME &t);     // Done
+TIME operator++(TIME &t, int); // Done
+TIME operator--(TIME &t, int); // Done
 bool operator<(TIME const &t1, TIME const &t2);
 bool operator>(TIME const &t1, TIME const &t2);
 bool operator<=(TIME const &t1, TIME const &t2);
 bool operator>=(TIME const &t1, TIME const &t2);
-bool operator==(TIME const &t1, TIME const &t2);//Done
-bool operator!=(TIME const &t1, TIME const &t2);//Done
-istream &operator>>(istream &is, TIME &t);//need to be check
+bool operator==(TIME const &t1, TIME const &t2); // Done
+bool operator!=(TIME const &t1, TIME const &t2); // Done
+istream &operator>>(istream &is, TIME &t);       // need to be check
 ostream &operator<<(ostream &os, TIME const &t); // edwin edit--> declared cout function.
 void error();
-void ignore(int n = 1024, char stop = ":")
 void modify(TIME &t);
 #endif // TDDE18_TIME_H
