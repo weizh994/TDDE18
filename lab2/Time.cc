@@ -46,6 +46,35 @@ bool is_am(TIME const &t)
 
 string to_string(TIME const &t, bool const &in_24Hformat)
 {
+    if (in_24Hformat)
+    {
+        return to_string(t.hour, 0) + ":" + to_string(t.minute, 0) + ":" + to_string(t.second, 0);
+    }
+    else
+    {
+        if (is_am(t))
+        {
+            return to_string(t, true) + "[am]";
+        }
+        else
+        {
+            if (t.hour == 12)
+            {
+                return to_string(t, true) + "[pm]";
+            }
+            else
+            {
+                TIME newTime{t};
+                newTime.hour -= 12;
+                return to_string(newTime, true) + "[pm]";
+            }
+        }
+    }
+}
+
+string to_string(int const &t, int)
+{
+    return to_string(t).insert(0, 2 - to_string(t).length(), '0');
 }
 
 TIME operator+(TIME const &t, int const &n)
@@ -167,7 +196,7 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
 // Edwin edit: adding cout
 ostream &operator<<(ostream &os, TIME const &t)
 {
-    os << t.hour << ":" << t.minute << ":" << t.second;
+    os << to_string(t, true);
     return os;
 }
 // end of cout
@@ -199,7 +228,7 @@ void modify(TIME &t)
         else if (t.second < 0)
         {
             t.minute = t.minute - static_cast<int>(ceil(t.second * (-1) / 60.0));
-            t.second = t.second * (-1) % 60;
+            t.second = 60 - t.second * (-1) % 60;
         }
         else if (t.minute > 59)
         {
@@ -209,7 +238,7 @@ void modify(TIME &t)
         else if (t.minute < 0)
         {
             t.hour = t.hour - static_cast<int>(ceil(t.minute * (-1) / 60.0));
-            t.minute = t.minute * (-1) % 60;
+            t.minute = 60 - t.minute * (-1) % 60;
         }
         else if (t.hour > 23)
         {
@@ -217,7 +246,7 @@ void modify(TIME &t)
         }
         else
         {
-            t.hour = static_cast<int>(ceil(t.hour * (-1) / 24.0));
+            t.hour = 24 - t.hour * (-1) % 24;
         }
     }
 }

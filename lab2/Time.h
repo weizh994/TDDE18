@@ -16,19 +16,20 @@ struct TIME
 bool is_valid(TIME const &t);                     // Done
 bool is_valid(int const &t, bool const &is_hour); // overload with int
 string to_string(TIME const &t, bool const &in_24Hformat);
-bool is_am(TIME const &t);
+string to_string(int const &t, int);         // Done
+bool is_am(TIME const &t);                   // Done
 TIME operator+(TIME const &t, int const &n); // Do we need n+t?//Done
 TIME operator-(TIME const &t, int const &n); // Do we need n-t?//Done
 // TIME &operator+=(TIME &t, int const &n);
 // TIME &operator-=(TIME &t, int const &n);
-TIME &operator++(TIME &t);     // Done
-TIME &operator--(TIME &t);     // Done
-TIME operator++(TIME &t, int); // Done
-TIME operator--(TIME &t, int); // Done
-bool operator<(TIME const &t1, TIME const &t2);
-bool operator>(TIME const &t1, TIME const &t2);
-bool operator<=(TIME const &t1, TIME const &t2);
-bool operator>=(TIME const &t1, TIME const &t2);
+TIME &operator++(TIME &t);                       // Done
+TIME &operator--(TIME &t);                       // Done
+TIME operator++(TIME &t, int);                   // Done
+TIME operator--(TIME &t, int);                   // Done
+bool operator<(TIME const &t1, TIME const &t2);  // Done
+bool operator>(TIME const &t1, TIME const &t2);  // Done
+bool operator<=(TIME const &t1, TIME const &t2); // Done
+bool operator>=(TIME const &t1, TIME const &t2); // Done
 bool operator==(TIME const &t1, TIME const &t2); // Done
 bool operator!=(TIME const &t1, TIME const &t2); // Done
 istream &operator>>(istream &is, TIME &t);       // need to be check
