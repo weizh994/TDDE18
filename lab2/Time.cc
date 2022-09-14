@@ -25,6 +25,31 @@ bool is_valid(int const &t, bool const &is_hour)
     }
 }
 
+bool is_am(TIME const &t);
+{
+
+if(!is_valid(t))
+{
+    return false;
+}   
+
+if(t.hour<12)
+    {
+        return true;
+    }
+else
+    {
+    return false;
+    }      
+}
+
+string to_string(TIME const &t, bool const &t )
+{
+    if()
+
+
+}
+
 TIME operator+(TIME const &t, int const &n)
 {
     TIME tmp{t};

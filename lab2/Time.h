@@ -15,7 +15,7 @@ struct TIME
 };
 bool is_valid(TIME const &t);
 bool is_valid(int const &t, bool const &is_hour);
-string to_string(TIME const &t);
+string to_string(TIME const &t, bool const &t );
 bool is_am(TIME const &t);// made, with first checking valid time then checking less than 11.
 TIME operator+(TIME const &t, int const &n); // Do we need n+t?
 TIME operator-(TIME const &t, int const &n); // Do we need n-t?
@@ -27,7 +27,7 @@ bool operator<(TIME const &t1, TIME const &t2);//done
 bool operator>(TIME const &t1, TIME const &t2);//done
 bool operator<=(TIME const &t1, TIME const &t2);//done
 bool operator>=(TIME const &t1, TIME const &t2);//done
-bool operator==(TIME const &t1, TIME const &t2);
+bool operator==(TIME const &t1, TIME const &t2);//
 bool operator!=(TIME const &t1, TIME const &t2);
 istream &operator>>(istream &is, TIME &t);
 ostream &operator<<(ostream &os, TIME const &t); // edwin edit--> declared cout function.
