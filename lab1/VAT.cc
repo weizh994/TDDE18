@@ -8,8 +8,7 @@ using namespace std;
 // TODO: Complementary work: Don't repeat characters but use 
 // manipulators from iomanip (example setprecision())
 
-int main()
-{
+int main(){
 	cout << "INPUT PART\n"
 			 << setfill('=') << setw(10) << "\0"
 			 << endl;

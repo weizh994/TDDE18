@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Time.h"
 #include <string>
+#include <math.h>
 using namespace std;
 
 bool is_valid(TIME const &t)
@@ -24,30 +25,27 @@ bool is_valid(int const &t, bool const &is_hour)
             return false;
     }
 }
-
-bool is_am(TIME const &t);
+bool is_am(TIME const &t)
 {
-
-if(!is_valid(t))
-{
-    return false;
-}   
-
-if(t.hour<12)
+    if (!is_valid(t))
     {
-        return true;
+        return false;
     }
-else
+    else
     {
-    return false;
-    }      
+        if (t.hour < 12)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
-string to_string(TIME const &t, bool const &t )
+string to_string(TIME const &t, bool const &in_24Hformat)
 {
-    if()
-
-
 }
 
 TIME operator+(TIME const &t, int const &n)
@@ -94,12 +92,12 @@ TIME operator--(TIME &t, int)
     return tmp;
 }
 bool operator<(TIME const &t1, TIME const &t2)
+{
+    if (t1.hour == t2.hour)
     {
-    if(t1.hour==t2.hour)
-    {
-        if(t1.minute==t2.minute)
+        if (t1.minute == t2.minute)
         {
-            if(t1.second!<t2.second)
+            if (!(t1.second < t2.second))
             {
                 return false;
             }
@@ -108,27 +106,27 @@ bool operator<(TIME const &t1, TIME const &t2)
                 return true;
             }
         }
-        else if(t1.minute>t2.minute)
+        else if (t1.minute > t2.minute)
         {
             return false;
         }
-        else {
+        else
+        {
             return true;
         }
-
-        }
-    else if(t1.hour>t2.hour)
-        {
-            return false;
-        }
+    }
+    else if (t1.hour > t2.hour)
+    {
+        return false;
+    }
     else
     {
         return true;
     }
-    
 }
 
-bool operator>(TIME const &t1, TIME const &t2){
+bool operator>(TIME const &t1, TIME const &t2)
+{
     return t2 < t1;
 }
 
@@ -136,10 +134,12 @@ bool operator<=(TIME const &t1, TIME const &t2)
 {
     return (t1 < t2) || (t1 == t2);
 }
+
 bool operator>=(TIME const &t1, TIME const &t2)
 {
     return t2 <= t1;
 }
+
 bool operator==(TIME const &t1, TIME const &t2)
 {
     return (t1.hour == t2.hour) && (t1.minute == t2.minute) && (t1.second == t2.second);
@@ -154,59 +154,14 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
 {
     do
     {
+        fail();
         is >> t.hour;
-        ignore();
-    } while (!is_valid(t.hour, true));
-    do
-    {
+        cin.ignore(1024, ':');
         is >> t.minute;
-        ignore();
-    } while (!is_valid(t.minute, false));
-    do
-    {
+        cin.ignore(1024, ':');
         is >> t.second;
-        ignore();
-    } while (!is_valid(t.second, false));
-    /*while(is>>t.hour){
-        if(is.bad()||is.eof()||is.fail()){
-            is.clear();
-            is.ignore(999999,'\n');
-            error();
-        }
-        else if((t.hour > 23) || (t.hour < 0)){
-            error();
-        }
-        else{
-            break;
-        }
-    }
-    while(is>>t.minute){
-        if(is.bad()||is.eof()||is.fail()){
-            is.clear();
-            is.ignore(999999,'\n');
-            error();
-        }
-        else if((t.minute > 59) || (t.minute < 0)){
-            error();
-        }
-        else{
-            break;
-        }
-    }
-    while(is>>t.second){
-        if(is.bad()||is.eof()||is.fail()){
-            is.clear();
-            is.ignore(999999,'\n');
-            error();
-        }
-        else if((t.second > 59) || (t.second < 0)){
-            error();
-        }
-        else{
-            break;
-        }
-    }
-    return is;*/
+    } while ((!is_valid(t)) || cin.fail());
+    return is;
 }
 
 // Edwin edit: adding cout
@@ -222,9 +177,14 @@ void error()
     cerr << "ERROR: Illegal Time!" << endl;
 }
 
-void ignore(int n, char stop){
-    cin.clear();
-    cin.ignore(n,stop)
+void fail()
+{
+    if (cin.fail())
+    {
+        error();
+        cin.clear();
+        cin.ignore(1024, '\n');
+    }
 }
 
 void modify(TIME &t)
@@ -238,7 +198,7 @@ void modify(TIME &t)
         }
         else if (t.second < 0)
         {
-            t.minute = t.minute - t.second * (-1) / 60;
+            t.minute = t.minute - static_cast<int>(ceil(t.second * (-1) / 60.0));
             t.second = t.second * (-1) % 60;
         }
         else if (t.minute > 59)
@@ -248,7 +208,7 @@ void modify(TIME &t)
         }
         else if (t.minute < 0)
         {
-            t.hour = t.hour - t.minute * (-1) / 60;
+            t.hour = t.hour - static_cast<int>(ceil(t.minute * (-1) / 60.0));
             t.minute = t.minute * (-1) % 60;
         }
         else if (t.hour > 23)
@@ -257,7 +217,7 @@ void modify(TIME &t)
         }
         else
         {
-            t.hour = t.hour * (-1) % 24;
+            t.hour = static_cast<int>(ceil(t.hour * (-1) / 24.0));
         }
     }
 }

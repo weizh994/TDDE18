@@ -13,24 +13,27 @@ struct TIME
     int minute;
     int second;
 };
-bool is_valid(TIME const &t);
-bool is_valid(int const &t, bool const &is_hour);
-string to_string(TIME const &t, bool const &t );
-bool is_am(TIME const &t);// made, with first checking valid time then checking less than 11.
-TIME operator+(TIME const &t, int const &n); // Do we need n+t?
-TIME operator-(TIME const &t, int const &n); // Do we need n-t?
-TIME &operator+=(TIME &t, int const &n);
-TIME &operator-=(TIME &t, int const &n);
-TIME &operator++(TIME &t);
-TIME operator--(TIME &t, int);
-bool operator<(TIME const &t1, TIME const &t2);//done   
-bool operator>(TIME const &t1, TIME const &t2);//done
-bool operator<=(TIME const &t1, TIME const &t2);//done
-bool operator>=(TIME const &t1, TIME const &t2);//done
-bool operator==(TIME const &t1, TIME const &t2);//
-bool operator!=(TIME const &t1, TIME const &t2);
-istream &operator>>(istream &is, TIME &t);
+bool is_valid(TIME const &t);                     // Done
+bool is_valid(int const &t, bool const &is_hour); // overload with int
+string to_string(TIME const &t, bool const &in_24Hformat);
+bool is_am(TIME const &t);
+TIME operator+(TIME const &t, int const &n); // Do we need n+t?//Done
+TIME operator-(TIME const &t, int const &n); // Do we need n-t?//Done
+// TIME &operator+=(TIME &t, int const &n);
+// TIME &operator-=(TIME &t, int const &n);
+TIME &operator++(TIME &t);     // Done
+TIME &operator--(TIME &t);     // Done
+TIME operator++(TIME &t, int); // Done
+TIME operator--(TIME &t, int); // Done
+bool operator<(TIME const &t1, TIME const &t2);
+bool operator>(TIME const &t1, TIME const &t2);
+bool operator<=(TIME const &t1, TIME const &t2);
+bool operator>=(TIME const &t1, TIME const &t2);
+bool operator==(TIME const &t1, TIME const &t2); // Done
+bool operator!=(TIME const &t1, TIME const &t2); // Done
+istream &operator>>(istream &is, TIME &t);       // need to be check
 ostream &operator<<(ostream &os, TIME const &t); // edwin edit--> declared cout function.
 void error();
-
+void fail();
+void modify(TIME &t);
 #endif // TDDE18_TIME_H
