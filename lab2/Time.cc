@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Time.h"
 #include <string>
+#include <math.h>
 using namespace std;
 
 bool is_valid(TIME const &t)
@@ -197,7 +198,7 @@ void modify(TIME &t)
         }
         else if (t.second < 0)
         {
-            t.minute = t.minute - t.second * (-1) / 60;
+            t.minute = t.minute - static_cast<int>(ceil(t.second * (-1) / 60.0));
             t.second = t.second * (-1) % 60;
         }
         else if (t.minute > 59)
@@ -207,7 +208,7 @@ void modify(TIME &t)
         }
         else if (t.minute < 0)
         {
-            t.hour = t.hour - t.minute * (-1) / 60;
+            t.hour = t.hour - static_cast<int>(ceil(t.minute * (-1) / 60.0));
             t.minute = t.minute * (-1) % 60;
         }
         else if (t.hour > 23)
@@ -216,7 +217,7 @@ void modify(TIME &t)
         }
         else
         {
-            t.hour = t.hour * (-1) % 24;
+            t.hour = static_cast<int>(ceil(t.hour * (-1) / 24.0));
         }
     }
 }
