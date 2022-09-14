@@ -3,18 +3,11 @@
 #include<fstream>
 using namespace std;
 
-// TODO: Complementary work: You must print a warning and end the program if the file is empty. 
-// CHECKED
-// TODO: Complementary work: Declaring the shortest word as a int at first
-// is not the best way to solve this, what if a word is longer? 
-// Hint: Can you use the first word in the file?
-// CHECKED
-// TODO: Complementary work: Functions and blocks need to be 
-// indented properly (be consistent). 
-// CHECKED
-// TODO: Complementary work: Float is not the best variable to use, rounding errors are more
-// prone to happen.
-// Double?
+// TODO: Complementary work: The average word should give two decimals
+// TODO: Complementary work: Seperate the different parts of the
+// code with an empty line.
+// TODO: Complementary work: Use {} for if and end statements for 
+// readability if you have it around some.
 
 int main(){		
 	ifstream read_file;

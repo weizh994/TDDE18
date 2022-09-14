@@ -3,23 +3,8 @@
 #include<string>
 using namespace std;
 
-// TODO: Complementary work: Have spaces between operators to
-// increase the codes readability
-// CHECKED
-// TODO: Complementary work: There's no need to use static_cast
-// in the IO lab, use the appropriate container defined instead.
-// CHECKED
-// TODO: Complementary work: Don't use define macros. If anything
-// use a function (or cin.ignore() where you have cin.ignore(99999999,'\n'))
-// CHECKED
-// TODO: Complementary work: Variable names must be descriptive of
-// what they are used for or what they represent.
-// CHECKED
-// TODO: Complementary work: Keep your lines shorter than 100 characters.
-// Hint: You can break a cout statement like this:
-// cout << ...
-//      << ...;
-// CHECKED
+// TODO: Complementary work: Don't repeat characters but use 
+// manipulators from iomanip (example setprecision())
 
 int main(){
     int varible_int;

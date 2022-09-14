@@ -5,22 +5,9 @@ using namespace std;
 
 // TODO: Complementary work: Seperate the different parts of the
 // code with an empty line.
-// CHECKED
-// TODO: Complementary work: Have spaces between operators to
-// increase the codes readability
-// CHECKED
 // TODO: Complementary work: Don't repeat characters but use 
-// manipulators from iomanip (example setfill())
-// CHECKED
-// TODO: Complementary work: Doesn't work for the following input: 
-// first price = 9990 
-// last price = 10000 
-// stide = 0.1 
-// tax = 20 
-// Specifically it doesn't print the final row. 
-// Hint: Do you know how many iterations needs to be done? 
-// If so, is there a better type of loop you can us? 
-// CHECKED
+// manipulators from iomanip (example setprecision())
+
 int main(){
 	cout << "INPUT PART\n"
 			 << setfill('=') << setw(10) << "\0"
