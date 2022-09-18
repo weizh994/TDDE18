@@ -6,11 +6,13 @@ using namespace std;
 // TODO: Complementary work: Don't repeat characters but use 
 // manipulators from iomanip (example setprecision())
 
-int main(){
+int main()
+{
     int varible_int;
     double varible_double;
     char varible_char;
     string varible_string;
+    
     //1  static_cast<type>(varible)							//was <int>
     cout << "Enter on integer: ";
     cin >> varible_int;
@@ -54,7 +56,6 @@ int main(){
          << fixed << setprecision(3)
          << varible_double << endl;
     cout << "The integer is: "
-         << setfill('.')
          << right << setw(8)
          << varible_int << "\n" << endl;
 
@@ -97,7 +98,7 @@ int main(){
     cin.ignore(99999999,'\n');
     cout << "You entered \"" << varible_string
          << "\" and \"" << fixed
-         << setprecision(3) << varible_double
+         << varible_double
          << "\".\n" << endl;
 
     //9    getline()

@@ -8,7 +8,8 @@ using namespace std;
 // TODO: Complementary work: Don't repeat characters but use 
 // manipulators from iomanip (example setprecision())
 
-int main(){
+int main()
+{
 	cout << "INPUT PART\n"
 			 << setfill('=') << setw(10) << "\0"
 			 << endl;
@@ -19,15 +20,13 @@ int main(){
 	cin >> first_price;
 	cin.ignore(9999999,'\n');
 	
-	
- 	while(first_price<0.0)
+	while(first_price<0.0)
 	{
 		cerr << "ERROR: First price must be at least 0 (zero) SEK" << endl;
 		cout << left << setw(input_lenth) << "Enter first price" << ": ";
 		cin >> first_price;
 		cin.ignore(9999999,'\n');
 	}
-	
 	cout << left << setw(input_lenth) << "Enter last prise" << ": ";
 	float last_price;
 	cin >> last_price;
@@ -41,7 +40,6 @@ int main(){
 		cin >> last_price;
 		cin.ignore(9999999,'\n');
 	}
-	
 	cout << left << setw(input_lenth) << "Enter stride" << ": ";
 	float stride;
 	cin >> stride;
@@ -54,7 +52,6 @@ int main(){
 		cin >> stride;
 		cin.ignore(9999999,'\n');
 	}
-	
 	cout << left << setw(input_lenth) << "Enter tax percent" << ": ";
 	float tax_percent;
 	cin >> tax_percent;
@@ -81,9 +78,9 @@ int main(){
 		cout << right << setfill(' ') << setw(12) << fixed << setprecision(2) << price;
 		float tax = price*tax_percent/100.00;
 		cout << right << setw(17)
-				 << fixed << setprecision(2) << tax;
+				 << fixed<< tax;
 		cout << right << setw(20)
-				 << fixed << setprecision(2) << tax+price << endl;
+				 << fixed << tax+price << endl;
 	}
 	//TAX TABEL OVER
 	return 0;
