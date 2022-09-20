@@ -87,10 +87,7 @@ TIME operator+(TIME const &t, int const &n)
 
 TIME operator-(TIME const &t, int const &n)
 {
-    TIME tmp{t};
-    tmp.second -= n;
-    modify(tmp);
-    return tmp;
+    return t + (-n);
 }
 
 TIME &operator++(TIME &t)
