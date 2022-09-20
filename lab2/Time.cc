@@ -99,12 +99,14 @@ TIME &operator++(TIME &t)
     modify(t);
     return t;
 }
+
 TIME &operator--(TIME &t)
 {
     --t.second;
     modify(t);
     return t;
 }
+
 TIME operator++(TIME &t, int)
 {
     TIME tmp{t};
