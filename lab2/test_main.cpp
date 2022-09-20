@@ -32,11 +32,15 @@ TEST_CASE("to_string")
     TIME t2{12, 0, 0};
     CHECK(to_string(t2, true) == "12:00:00");
     CHECK(to_string(t2, false) == "12:00:00 pm");
+    TIME t3{24, 0, 0};
+    CHECK(to_string(t3, true) == "ERROR: Illegal Time!");
+    CHECK(to_string(t3, false) == "ERROR: Illegal Time!");
 }
 
 TEST_CASE("operator+")
 {
     TIME t1{0, 0, 0};
+    CHECK(t1 + 86400 == t1);
     TIME t2{0, 0, 1};
     CHECK(t1 + 1 == t2);
     TIME t3{0, 1, 1};
@@ -47,4 +51,12 @@ TEST_CASE("operator+")
 
 TEST_CASE("operator-")
 {
+    TIME t1{0, 0, 0};
+    CHECK(t1 - 86400 == t1);
+    TIME t2{23, 59, 59};
+    CHECK(t1 - 1 == t2);
+    TIME t3{23, 57, 59};
+    CHECK(t2 - 120 == t3);
+    TIME t4{22, 57, 59};
+    CHECK(t3 - 3600 == t4);
 }

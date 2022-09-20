@@ -46,6 +46,10 @@ bool is_am(TIME const &t)
 
 string to_string(TIME const &t, bool const &in_24Hformat)
 {
+    if (!is_valid(t))
+    {
+        return "ERROR: Illegal Time!";
+    }
     if (in_24Hformat)
     {
         return to_string(t.hour, 0) + ":" + to_string(t.minute, 0) + ":" + to_string(t.second, 0);
@@ -87,7 +91,7 @@ TIME operator+(TIME const &t, int const &n)
 
 TIME operator-(TIME const &t, int const &n)
 {
-    return t + (-n);
+    return t + (n * -1);
 }
 
 TIME &operator++(TIME &t)
@@ -227,7 +231,7 @@ void modify(TIME &t)
         else if (t.second < 0)
         {
             t.minute = t.minute - static_cast<int>(ceil(t.second * (-1) / 60.0));
-            t.second = 60 - t.second * (-1) % 60;
+            t.second = (60 - t.second * (-1) % 60) % 60;
         }
         else if (t.minute > 59)
         {
@@ -237,7 +241,7 @@ void modify(TIME &t)
         else if (t.minute < 0)
         {
             t.hour = t.hour - static_cast<int>(ceil(t.minute * (-1) / 60.0));
-            t.minute = 60 - t.minute * (-1) % 60;
+            t.minute = ((60 - t.minute * (-1)) % 60) % 60;
         }
         else if (t.hour > 23)
         {
@@ -245,7 +249,7 @@ void modify(TIME &t)
         }
         else
         {
-            t.hour = 24 - t.hour * (-1) % 24;
+            t.hour = (24 - t.hour * (-1)) % 24;
         }
     }
 }
