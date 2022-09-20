@@ -54,19 +54,19 @@ string to_string(TIME const &t, bool const &in_24Hformat)
     {
         if (is_am(t))
         {
-            return to_string(t, true) + "[am]";
+            return to_string(t, true) + " am";
         }
         else
         {
             if (t.hour == 12)
             {
-                return to_string(t, true) + "[pm]";
+                return to_string(t, true) + " pm";
             }
             else
             {
                 TIME newTime{t};
                 newTime.hour -= 12;
-                return to_string(newTime, true) + "[pm]";
+                return to_string(newTime, true) + " pm";
             }
         }
     }
