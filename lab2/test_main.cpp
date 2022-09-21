@@ -60,3 +60,20 @@ TEST_CASE("operator-")
     TIME t4{22, 57, 59};
     CHECK(t3 - 3600 == t4);
 }
+
+TEST_CASE("operator>>")
+{
+    istringstream iss{"11:00:00 "};
+    TIME t{};
+    iss >> t;
+    CHECK(iss.fail());
+    CHECK(to_string(t) == "11:00:00");
+}
+
+TEST_CASE("operator<<")
+{
+    std::ostringstream oss{}; // fake "cout"
+    TIME t{1, 2, 2};
+    oss << t;
+    CHECK(oss.str() == "01:02:02");
+}

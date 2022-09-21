@@ -58,19 +58,19 @@ string to_string(TIME const &t, bool const &in_24Hformat)
     {
         if (is_am(t))
         {
-            return to_string(t, true) + " am";
+            return to_string(t) + " am";
         }
         else
         {
             if (t.hour == 12)
             {
-                return to_string(t, true) + " pm";
+                return to_string(t) + " pm";
             }
             else
             {
                 TIME newTime{t};
                 newTime.hour -= 12;
-                return to_string(newTime, true) + " pm";
+                return to_string(newTime) + " pm";
             }
         }
     }
@@ -192,6 +192,10 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
         is >> t.minute;
         cin.ignore(1024, ':');
         is >> t.second;
+        if (!is_valid(t))
+        {
+            error();
+        }
     } while ((!is_valid(t)) || cin.fail());
     return is;
 }
@@ -199,7 +203,7 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
 // Edwin edit: adding cout
 ostream &operator<<(ostream &os, TIME const &t)
 {
-    os << to_string(t, true);
+    os << to_string(t);
     return os;
 }
 // end of cout
