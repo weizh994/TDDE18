@@ -25,61 +25,40 @@ TEST_CASE(operator<)
 {
     TIME t1(04:42:22);
     TIME t2(06:56:11);
-    CHECK((t1<t2);
-    TIME t1(07:58:10);
-    TIME t2(06:56:11);
-    CHECK (t1<t2);
-    TIME t1(04:42:22);
-    TIME t2(06:56:11);
-    CHECK((t1<t2);
-    TIME t1(06:56:11);
-    TIME t2(06:56:11);
+    TIME t3(04:42:22);
     CHECK(t1<t2);
-    TIME t1(07:24:54);
-    TIME t2(06:56:11);
-    CHECK_FALSE(t1<t2);
+    CHECK_FALSE(t2<t1);
+    CHECK_FALSE(t3<t1);
+    
 
 }
 
 
 TEST_CASE(operator>)
 {
-    TTIME t1(04:42:22);
-    TIME t2(06:56:11);
-    CHECK((t1>t2);
-    TIME t1(07:58:10);
-    TIME t2(06:56:11);
-    CHECK (t1>t2);
     TIME t1(04:42:22);
     TIME t2(06:56:11);
-    CHECK((t1>t2);
-    TIME t1(06:56:11);
-    TIME t2(06:56:11);
-    CHECK(t1>t2);
-    TIME t1(07:24:54);
-    TIME t2(06:56:11);
+    TIME t3(04:42:22);
+    CHECK(t2>t1);
     CHECK_FALSE(t1>t2);
+    CHECK_FALSE(t3>t1);
+    
+
+
 
 }
 
 
 TEST_CASE(operator!=)
 {
- TIME t1(04:42:22);
-    TIME t2(06:56:11);
-    CHECK((t1!=t2);
-    TIME t1(07:58:10);
-    TIME t2(06:56:11);
-    CHECK (t1!=t2);
     TIME t1(04:42:22);
     TIME t2(06:56:11);
-    CHECK((t1!=t2);
-    TIME t1(06:56:11);
-    TIME t2(06:56:11);
-    CHECK(t1!=t2);
-    TIME t1(07:24:54);
-    TIME t2(06:56:11);
-    CHECK_FALSE(t1!=t2);
+    TIME t3(04:42:22);
+    CHECK(t2!=t1);
+    CHECK_FALSE(t1!=t3);
+    
+    
+
 
 }
 
@@ -88,40 +67,28 @@ TEST_CASE(operator>=)
 {
     TIME t1(04:42:22);
     TIME t2(06:56:11);
-    CHECK((t1>=t2);
-    TIME t1(07:58:10);
-    TIME t2(06:56:11);
-    CHECK (t1>=t2);
-    TIME t1(04:42:22);
-    TIME t2(06:56:11);
-    CHECK((t1>=t2);
-    TIME t1(06:56:11);
-    TIME t2(06:56:11);
-    CHECK(t1>=t2);
-    TIME t1(07:24:54);
-    TIME t2(06:56:11);
+    TIME t3(04:42:22);
+    CHECK(t2>=t1);
     CHECK_FALSE(t1>=t2);
+    CHECK(t3>=t1);
+    
+
+
 
 }
 
 
 TEST_CASE(operator<=)
 {
-   TIME t1(04:42:22);
-    TIME t2(06:56:11);
-    CHECK((t1<=t2);
-    TIME t1(07:58:10);
-    TIME t2(06:56:11);
-    CHECK (t1<=t2);
     TIME t1(04:42:22);
     TIME t2(06:56:11);
-    CHECK((t1<=t2);
-    TIME t1(06:56:11);
-    TIME t2(06:56:11);
+    TIME t3(04:42:22);
+    CHECK_FALSE(t2<=t1);
     CHECK(t1<=t2);
-    TIME t1(07:24:54);
-    TIME t2(06:56:11);
-    CHECK_FALSE(t1<=t2);
+    CHECK(t3<=t1);
+    
+
+
 
 }
 
@@ -129,19 +96,13 @@ TEST_CASE(operator==)
 {
     TIME t1(04:42:22);
     TIME t2(06:56:11);
-    CHECK((t1==t2);
-    TIME t1(07:58:10);
-    TIME t2(06:56:11);
-    CHECK (t1==t2);
-    TIME t1(04:42:22);
-    TIME t2(06:56:11);
-    CHECK((t1==t2);
-    TIME t1(06:56:11);
-    TIME t2(06:56:11);
-    CHECK(t1==t2);
-    TIME t1(07:24:54);
-    TIME t2(06:56:11);
-    CHECK_FALSE(t1==t2);
+    TIME t3(04:42:22);
+    CHECK_FALSE(t2==t1);
+    CHECK_FALSE(t3==t2);
+    CHECK(t3==t1);
+    
+
+
 
 
 }
