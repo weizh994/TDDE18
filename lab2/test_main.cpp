@@ -104,12 +104,12 @@ TEST_CASE("operator--,int")
 
 TEST_CASE("operator<<")
 {
-    std::ostringstream oss{}; // fake "cout"
-    TIME t{1, 2, 2};
-    oss << t;
-    CHECK(oss.str() == "01:02:02");
-    std::ostringstream oss{}; // fake "cout"
-    TIME t{13, 2, 2};
-    oss << t;
-    CHECK(oss.str() == "13:02:02");
+    std::ostringstream oss1{}; // fake "cout"
+    TIME t1{1, 2, 2};
+    oss1 << t1;
+    CHECK(oss1.str() == "01:02:02");
+    std::ostringstream oss2{}; // fake "cout"
+    TIME t2{13, 2, 2};
+    oss2 << t2;
+    CHECK(oss2.str() == "13:02:02");
 }
