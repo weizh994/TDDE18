@@ -188,7 +188,7 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
 {
     do
     {
-        fail();
+        fix();
         is >> t.hour;
         cin.ignore(1024, ':');
         is >> t.minute;
@@ -215,7 +215,7 @@ void error()
     cerr << "ERROR: Illegal Time!" << endl;
 }
 
-void fail()
+void fix()
 {
     if (cin.fail())
     {
