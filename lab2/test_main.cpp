@@ -2,6 +2,7 @@
 #include "catch.hpp"
 #include "Time.h"
 #include <iostream>
+#include <sstream>
 #include <typeinfo>
 using namespace std;
 TEST_CASE("is_valid")
@@ -151,14 +152,26 @@ TEST_CASE("operator--,int")
     CHECK(to_string(t2) == "00:00:59");
 }
 
-/*TEST_CASE("operator>>")
+TEST_CASE("operator>>")
 {
-    istringstream iss{"11:00:00 "};
+    istringstream iss{"11:00:00"};
     TIME t{};
     iss >> t;
-    CHECK(iss.fail());
+    CHECK_FALSE(iss.fail());
     CHECK(to_string(t) == "11:00:00");
-}*/
+
+    istringstream iss1{"25:00:00"};
+    TIME t1{};
+    iss1 >> t1;
+    CHECK(iss1.fail());
+    CHECK(to_string(t1) == "00:00:00");
+
+    istringstream iss2{"a:00:00"};
+    TIME t2{};
+    iss2 >> t2;
+    CHECK(iss2.fail());
+    CHECK(to_string(t2) == "00:00:00");
+}
 
 TEST_CASE("operator<<")
 {

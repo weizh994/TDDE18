@@ -16,25 +16,25 @@ struct TIME
 bool is_valid(TIME const &t);                                     // Done & Tested
 bool is_valid(int const &t, bool const &is_hour);                 // overload with int
 bool is_am(TIME const &t);                                        // Done & Tested
-string to_string(TIME const &t, bool const &in_24Hformat = true); // Done
-string to_string(int const &t, int);                              // Done
+string to_string(TIME const &t, bool const &in_24Hformat = true); // Done   default ture when call the function as to_string(t)
+string to_string(int const &t, int);                              // Done   make ever part in time as two digits
 TIME operator+(TIME const &t, int const &n);                      // Do we need n+t?//Done
 TIME operator-(TIME const &t, int const &n);                      // Do we need n-t?//Done
 // TIME &operator+=(TIME &t, int const &n);
 // TIME &operator-=(TIME &t, int const &n);
-TIME &operator++(TIME &t);                       // Done
-TIME &operator--(TIME &t);                       // Done
-TIME operator++(TIME &t, int);                   // Done
-TIME operator--(TIME &t, int);                   // Done
-bool operator<(TIME const &t1, TIME const &t2);  // Done
-bool operator>(TIME const &t1, TIME const &t2);  // Done
-bool operator<=(TIME const &t1, TIME const &t2); // Done
-bool operator>=(TIME const &t1, TIME const &t2); // Done
-bool operator==(TIME const &t1, TIME const &t2); // Done
-bool operator!=(TIME const &t1, TIME const &t2); // Done
-istream &operator>>(istream &is, TIME &t);       // Done
+TIME &operator++(TIME &t);                       // Done & Tested
+TIME &operator--(TIME &t);                       // Done & Tested
+TIME operator++(TIME &t, int);                   // Done & Tested
+TIME operator--(TIME &t, int);                   // Done & Tested
+bool operator<(TIME const &t1, TIME const &t2);  // Done & Tested
+bool operator>(TIME const &t1, TIME const &t2);  // Done & Tested
+bool operator<=(TIME const &t1, TIME const &t2); // Done & Tested
+bool operator>=(TIME const &t1, TIME const &t2); // Done & Tested
+bool operator==(TIME const &t1, TIME const &t2); // Done & Tested
+bool operator!=(TIME const &t1, TIME const &t2); // Done & Tested
+istream &operator>>(istream &is, TIME &t);       // Done & Tested
 ostream &operator<<(ostream &os, TIME const &t); // Done & Tested
 void error();
-void fix();
+//void fix();
 void modify(TIME &t);
 #endif // TDDE18_TIME_H

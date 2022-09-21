@@ -161,44 +161,49 @@ bool operator<(TIME const &t1, TIME const &t2)
 
 bool operator>(TIME const &t1, TIME const &t2)
 {
-    return t2 < t1;
+    return t2 < t1;//call operator>
 }
 
 bool operator<=(TIME const &t1, TIME const &t2)
 {
-    return (t1 < t2) || (t1 == t2);
+    return (t1 < t2) || (t1 == t2);//call operator< or operator==
 }
 
 bool operator>=(TIME const &t1, TIME const &t2)
 {
-    return t2 <= t1;
+    return t2 <= t1;//call operator<=
 }
 
 bool operator==(TIME const &t1, TIME const &t2)
 {
-    return (t1.hour == t2.hour) && (t1.minute == t2.minute) && (t1.second == t2.second);
+    return (t1.hour == t2.hour) && (t1.minute == t2.minute) && (t1.second == t2.second);//compare each part of two times
 }
 
 bool operator!=(TIME const &t1, TIME const &t2)
 {
-    return !(t1 == t2);
+    return !(t1 == t2);//call operator==
 }
 
 istream &operator>>(istream &is, TIME &t) // should use iteration!
 {
-    do
+    TIME tmp{};
+
+    is >> tmp.hour;
+    is.ignore(1024, ':');
+    is >> tmp.minute;
+    is.ignore(1024, ':');
+    is >> tmp.second;
+    if (!is_valid(tmp))
     {
-        fix();
-        is >> t.hour;
-        cin.ignore(1024, ':');
-        is >> t.minute;
-        cin.ignore(1024, ':');
-        is >> t.second;
-        if (!is_valid(t))
-        {
-            error();
-        }
-    } while ((!is_valid(t)) || cin.fail());
+        is.setstate(ios_base::failbit);//set a fail flag
+    }
+    else
+    {
+        t.hour = tmp.hour;
+        t.minute = tmp.minute;
+        t.second = tmp.second;
+    }
+
     return is;
 }
 
@@ -215,15 +220,15 @@ void error()
     cerr << "ERROR: Illegal Time!" << endl;
 }
 
-void fix()
+/*void fix(istream &is)
 {
-    if (cin.fail())
+    if (is.fail())
     {
         error();
-        cin.clear();
-        cin.ignore(1024, '\n');
+        is.clear();
+        is.ignore(1024, '\n');
     }
-}
+}*/
 
 void modify(TIME &t)
 {
