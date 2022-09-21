@@ -8,6 +8,7 @@ bool is_valid(TIME const &t)
 {
     return is_valid(t.hour, true) && is_valid(t.minute, false) && is_valid(t.second, false);
 }
+
 bool is_valid(int const &t, bool const &is_hour)
 {
     if (is_hour)
@@ -25,6 +26,7 @@ bool is_valid(int const &t, bool const &is_hour)
             return false;
     }
 }
+
 bool is_am(TIME const &t)
 {
     if (!is_valid(t))
