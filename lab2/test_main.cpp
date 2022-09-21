@@ -61,14 +61,46 @@ TEST_CASE("operator-")
     CHECK(t3 - 3600 == t4);
 }
 
-TEST_CASE("operator>>")
+TEST_CASE("operator++")
+{
+    TIME t1{0, 0, 59};
+    TIME t2(t1++);
+    CHECK(to_string(t1) == "00:01:00");
+    CHECK(to_string(t2) == "00:00:59");
+}
+
+TEST_CASE("operator--")
+{
+    TIME t1{0, 1, 0};
+    TIME t2(t1--);
+    CHECK(to_string(t1) == "00:00:59");
+    CHECK(to_string(t2) == "00:01:00");
+}
+
+TEST_CASE("operator++,int")
+{
+    TIME t1{0, 0, 59};
+    TIME t2(++t1);
+    CHECK(to_string(t1) == "00:01:00");
+    CHECK(to_string(t2) == "00:01:00");
+}
+
+TEST_CASE("operator--,int")
+{
+    TIME t1{0, 1, 0};
+    TIME t2(--t1);
+    CHECK(to_string(t1) == "00:00:59");
+    CHECK(to_string(t2) == "00:00:59");
+}
+
+/*TEST_CASE("operator>>")
 {
     istringstream iss{"11:00:00 "};
     TIME t{};
     iss >> t;
     CHECK(iss.fail());
     CHECK(to_string(t) == "11:00:00");
-}
+}*/
 
 TEST_CASE("operator<<")
 {
@@ -76,4 +108,8 @@ TEST_CASE("operator<<")
     TIME t{1, 2, 2};
     oss << t;
     CHECK(oss.str() == "01:02:02");
+    std::ostringstream oss{}; // fake "cout"
+    TIME t{13, 2, 2};
+    oss << t;
+    CHECK(oss.str() == "13:02:02");
 }
