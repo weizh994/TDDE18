@@ -125,6 +125,7 @@ TIME operator--(TIME &t, int)
     modify(t);
     return tmp;
 }
+
 bool operator<(TIME const &t1, TIME const &t2)
 {
     if (t1.hour == t2.hour)
@@ -161,27 +162,27 @@ bool operator<(TIME const &t1, TIME const &t2)
 
 bool operator>(TIME const &t1, TIME const &t2)
 {
-    return t2 < t1;//call operator>
+    return t2 < t1; // call operator>
 }
 
 bool operator<=(TIME const &t1, TIME const &t2)
 {
-    return (t1 < t2) || (t1 == t2);//call operator< or operator==
+    return (t1 < t2) || (t1 == t2); // call operator< or operator==
 }
 
 bool operator>=(TIME const &t1, TIME const &t2)
 {
-    return t2 <= t1;//call operator<=
+    return t2 <= t1; // call operator<=
 }
 
 bool operator==(TIME const &t1, TIME const &t2)
 {
-    return (t1.hour == t2.hour) && (t1.minute == t2.minute) && (t1.second == t2.second);//compare each part of two times
+    return (t1.hour == t2.hour) && (t1.minute == t2.minute) && (t1.second == t2.second); // compare each part of two times
 }
 
 bool operator!=(TIME const &t1, TIME const &t2)
 {
-    return !(t1 == t2);//call operator==
+    return !(t1 == t2); // call operator==
 }
 
 istream &operator>>(istream &is, TIME &t) // should use iteration!
@@ -195,7 +196,7 @@ istream &operator>>(istream &is, TIME &t) // should use iteration!
     is >> tmp.second;
     if (!is_valid(tmp))
     {
-        is.setstate(ios_base::failbit);//set a fail flag
+        is.setstate(ios_base::failbit); // set a fail flag
     }
     else
     {
