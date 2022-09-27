@@ -1,3 +1,4 @@
+#include <iostream>
 
 class List
 {
@@ -6,24 +7,41 @@ private:
   {
     int value;
     List *next;
+    ListNode(int const &tmp)
+    {
+      value = tmp;
+      next = nullptr;
+    };
   };
   ListNode *FirstNode;
 
 public:
-  List(int a); // constructor
-  ~List();     // destructor
+  List(int const &a);        // constructor
+  List(List const &theList); // copy constructor
+  ~List();                   // destructor
   void remove(ListNode &node);
   void inseret(ListNode &node);
-  void print(List const &l);
+  void print() const;
   int getValue(int const &n);
 };
 
-List::List(int a)
+List::List(int const &tmp)
 {
-  ListNode NewNode{a, nullptr};
-  FirstNode = &NewNode;
+  FirstNode = new ListNode(tmp);
 }
 
 List::~List()
 {
+  delete FirstNode;
+}
+
+void List::print() const
+{
+  std::cout << FirstNode->value << std::endl;
+}
+
+int main()
+{
+  List l(123);
+  l.print();
 }
