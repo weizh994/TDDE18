@@ -1,4 +1,5 @@
 #include <iostream>
+#include <initializer_list>
 
 class List
 {
@@ -19,8 +20,8 @@ public:
   List(int const &a);        // constructor
   List(List const &theList); // copy constructor
   ~List();                   // destructor
-  void remove(ListNode &node);
-  void inseret(int const &inValue);
+  void remove(int const &insValue);
+  void insert(int const &delValue); // Done
   void print() const;
   int getValue(int const &n);
 };
@@ -40,15 +41,15 @@ List::~List()
   }
 }
 
-void List::inseret(int const &inValue)
+void List::insert(int const &insValue)
 {
   if (FirstNode == nullptr)
   {
-    FirstNode = new ListNode(inValue);
+    FirstNode = new ListNode(insValue);
   }
   else
   {
-    ListNode *tmp = new ListNode(inValue);
+    ListNode *tmp = new ListNode(insValue);
     if (tmp->value <= FirstNode->value)
     {
       tmp->next = FirstNode;
@@ -56,23 +57,57 @@ void List::inseret(int const &inValue)
     }
     else
     {
-      ListNode *OriginFirstNode = FirstNode;
+      ListNode *CurrentNode = FirstNode;
       ListNode *PreviousNode = FirstNode;
-      while (tmp->value > FirstNode->value && FirstNode->next != nullptr)
+      while (tmp->value > CurrentNode->value && CurrentNode->next != nullptr)
       {
-        PreviousNode = FirstNode;
-        FirstNode = FirstNode->next;
+        PreviousNode = CurrentNode;
+        CurrentNode = CurrentNode->next;
       }
-      if (FirstNode->next == nullptr)
+      if (CurrentNode->next == nullptr) // at the end of the list
       {
-        FirstNode->next = tmp;
+        if (tmp->value <= CurrentNode->value) // last node larger than insert node
+        {
+          tmp->next = CurrentNode;
+          PreviousNode->next = tmp;
+        }
+        else // insert node is the biggest
+        {
+          CurrentNode->next = tmp;
+        }
       }
-      else
+      else // at the internial of the list
       {
-        tmp->next = FirstNode;
+        tmp->next = CurrentNode;
         PreviousNode->next = tmp;
       }
-      FirstNode = OriginFirstNode;
+    }
+  }
+}
+
+void List::remove(int const &delValue)
+{
+  if (FirstNode == nullptr)
+  {
+    std::cout << "Not exist" << std::endl;
+  }
+  else
+  {
+    ListNode *tmp = FirstNode;
+    ListNode *PreviousNode = tmp;
+    while (tmp->value != delValue && tmp->next != nullptr)
+    {
+      PreviousNode = tmp;
+      tmp = tmp->next;
+    }
+    if (tmp->next == nullptr)
+    {
+      std::cout << "Not exist" << std::endl;
+    }
+    else
+    {
+      PreviousNode->next = tmp->next;
+      delete tmp;
     }
   }
 }
@@ -97,5 +132,10 @@ void List::print() const
 int main()
 {
   List l(3);
+  l.insert(1);
+  l.insert(4);
+  l.insert(6);
+  l.insert(2);
+  l.insert(5);
   l.print();
 }
