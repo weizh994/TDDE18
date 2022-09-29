@@ -14,7 +14,7 @@ private:
       next = nullptr;
     };
   };
-  ListNode *FirstNode;
+  ListNode *FirstNode=nullptr;
 
 public:
   List(int const &a); // constructor
@@ -134,11 +134,9 @@ void List::print() const
 }
 int main()
 {
-  List l{1, 2, 3};
-  l.insert(1);
-  l.insert(4);
-  l.insert(6);
-  l.insert(2);
-  l.insert(5);
+  List l1{1, 2, 3};
+  l1.print();
+  List l{5,3,9,7};
   l.print();
+  
 }
