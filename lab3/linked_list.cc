@@ -6,10 +6,10 @@ private:
   struct ListNode
   {
     int value;
-    List *next;
-    ListNode(int const &tmp)
+    ListNode *next;
+    ListNode(int const &newValue) // Node constructor
     {
-      value = tmp;
+      value = newValue;
       next = nullptr;
     };
   };
@@ -20,7 +20,7 @@ public:
   List(List const &theList); // copy constructor
   ~List();                   // destructor
   void remove(ListNode &node);
-  void inseret(ListNode &node);
+  void inseret(int const &inValue);
   void print() const;
   int getValue(int const &n);
 };
@@ -32,16 +32,70 @@ List::List(int const &tmp)
 
 List::~List()
 {
-  delete FirstNode;
+  while (FirstNode != nullptr)
+  {
+    ListNode *temp = FirstNode;
+    FirstNode = FirstNode->next;
+    delete temp;
+  }
+}
+
+void List::inseret(int const &inValue)
+{
+  if (FirstNode == nullptr)
+  {
+    FirstNode = new ListNode(inValue);
+  }
+  else
+  {
+    ListNode *tmp = new ListNode(inValue);
+    if (tmp->value <= FirstNode->value)
+    {
+      tmp->next = FirstNode;
+      FirstNode = tmp;
+    }
+    else
+    {
+      ListNode *OriginFirstNode = FirstNode;
+      ListNode *PreviousNode = FirstNode;
+      while (tmp->value > FirstNode->value && FirstNode->next != nullptr)
+      {
+        PreviousNode = FirstNode;
+        FirstNode = FirstNode->next;
+      }
+      if (FirstNode->next == nullptr)
+      {
+        FirstNode->next = tmp;
+      }
+      else
+      {
+        tmp->next = FirstNode;
+        PreviousNode->next = tmp;
+      }
+      FirstNode = OriginFirstNode;
+    }
+  }
 }
 
 void List::print() const
 {
-  std::cout << FirstNode->value << std::endl;
+  ListNode *CurrentNode = FirstNode;
+  if (CurrentNode == nullptr)
+  {
+    std::cerr << "List is Empty" << std::endl;
+  }
+  else
+  {
+    while (CurrentNode != nullptr)
+    {
+      std::cout << CurrentNode->value << " ";
+      CurrentNode = CurrentNode->next;
+    }
+  }
+  std::cout << std::endl;
 }
-
 int main()
 {
-  List l(123);
+  List l(3);
   l.print();
 }
