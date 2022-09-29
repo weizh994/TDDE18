@@ -17,19 +17,22 @@ private:
   ListNode *FirstNode;
 
 public:
-  List(int const &a);        // constructor
-  List(List const &theList); // copy constructor
-  ~List();                   // destructor
+  List(int const &a); // constructor
+  List(std::initializer_list<int> list)
+  {
+    for (int i : list)
+    {
+      insert(i);
+    }
+  };       // copy constructor
+  ~List(); // destructor
   void remove(int const &insValue);
   void insert(int const &delValue); // Done
   void print() const;
   int getValue(int const &n);
 };
 
-List::List(int const &tmp)
-{
-  FirstNode = new ListNode(tmp);
-}
+// List(std::initializer_list<int> list)
 
 List::~List()
 {
@@ -131,7 +134,7 @@ void List::print() const
 }
 int main()
 {
-  List l(3);
+  List l{1, 2, 3};
   l.insert(1);
   l.insert(4);
   l.insert(6);
