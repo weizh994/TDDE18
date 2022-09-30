@@ -14,25 +14,32 @@ private:
       next = nullptr;
     };
   };
-  ListNode *FirstNode=nullptr;
+  ListNode *FirstNode;
 
 public:
-  List(int const &a); // constructor
-  List(std::initializer_list<int> list)
-  {
-    for (int i : list)
-    {
-      insert(i);
-    }
-  };       // copy constructor
-  ~List(); // destructor
+  List();                                // normal constructor
+  List(std::initializer_list<int> list); // constructor with initializer_list
+  List(List const &theList);             // copy constructor
+  ~List();                               // destructor
   void remove(int const &insValue);
   void insert(int const &delValue); // Done
   void print() const;
   int getValue(int const &n);
 };
 
-// List(std::initializer_list<int> list)
+List::List()
+{
+  FirstNode = nullptr;
+}
+
+List::List(std::initializer_list<int> list)
+{
+  FirstNode = nullptr;
+  for (int i : list)
+  {
+    insert(i);
+  }
+}
 
 List::~List()
 {
@@ -132,11 +139,9 @@ void List::print() const
   }
   std::cout << std::endl;
 }
+
 int main()
 {
-  List l1{1, 2, 3};
-  l1.print();
-  List l{5,3,9,7};
+  List l{5, 3, 9, 7};
   l.print();
-  
 }
