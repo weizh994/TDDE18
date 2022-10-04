@@ -1,0 +1,249 @@
+#include <iostream>
+#include "Time.h"
+#include <string>
+#include <math.h>
+using namespace std;
+
+// Comment: Use separate test_main and test_time files
+// This allows for faster compilaton by creating a
+// test_main.o file
+
+// TODO: Complementary work needed: Do not open namespaces in header files
+// (using namespace)
+
+// TODO: Complementary work needed: if your functions only return true or
+// false with one condition then you should change it to return condition or
+// !(condition). For ex: if (t1 < t2) {return false} --> return !(t1 < t2)
+
+// TODO: Complementary work needed: to_string should only return the time as
+// a string. It is the users responsibility to check if it is valid.
+
+bool is_valid(TIME const &t)
+{
+    return is_valid(t.hour, true) && is_valid(t.minute, false) && is_valid(t.second, false);
+}
+
+bool is_valid(int const &t, bool const &is_hour)
+{
+    if (is_hour)
+    {
+        return (t <= 23 && t >= 0);
+    }
+    else
+    {
+        return (t <= 59 && t >= 0);
+    }
+}
+
+bool is_am(TIME const &t)
+{
+    if (!is_valid(t))
+    {
+        return false;
+    }
+    else
+    {
+        return (t.hour < 12);
+    }
+}
+
+string to_string(TIME const &t, bool const &in_24Hformat)
+{
+
+    if (in_24Hformat)
+    {
+        return to_string(t.hour, 0) + ":" + to_string(t.minute, 0) + ":" + to_string(t.second, 0);
+    }
+    else
+    {
+        if (is_am(t))
+        {
+            return to_string(t) + " am";
+        }
+        else
+        {
+            if (t.hour == 12)
+            {
+                return to_string(t) + " pm";
+            }
+            else
+            {
+                TIME newTime{t};
+                newTime.hour -= 12;
+                return to_string(newTime) + " pm";
+            }
+        }
+    }
+}
+
+string to_string(int const &t, int)
+{
+    return to_string(t).insert(0, 2 - to_string(t).length(), '0');
+}
+
+TIME operator+(TIME const &t, int const &n)
+{
+    TIME tmp{t};
+    tmp.second += n;
+    modify(tmp);
+    return tmp;
+}
+
+TIME operator-(TIME const &t, int const &n)
+{
+    return t + (n * -1);
+}
+
+TIME &operator++(TIME &t)
+{
+    ++t.second;
+    modify(t);
+    return t;
+}
+
+TIME &operator--(TIME &t)
+{
+    --t.second;
+    modify(t);
+    return t;
+}
+
+TIME operator++(TIME &t, int)
+{
+    TIME tmp{t};
+    ++t.second;
+    modify(t);
+    return tmp;
+}
+
+TIME operator--(TIME &t, int)
+{
+    TIME tmp{t};
+    --t.second;
+    modify(t);
+    return tmp;
+}
+bool operator<(TIME const &t1, TIME const &t2)
+{
+    if (t1.hour == t2.hour)
+    {
+        if (t1.minute == t2.minute)
+        {
+            return t1.second < t2.second;
+        }
+        else
+        {
+            return !(t1.minute < t2.minute);
+        }
+    }
+    else
+    {
+        return t1.hour < t2.hour;
+    }
+}
+
+bool operator>(TIME const &t1, TIME const &t2)
+{
+    return t2 < t1; // call operator>
+}
+
+bool operator<=(TIME const &t1, TIME const &t2)
+{
+    return (t1 < t2) || (t1 == t2); // call operator< or operator==
+}
+
+bool operator>=(TIME const &t1, TIME const &t2)
+{
+    return t2 <= t1; // call operator<=
+}
+
+bool operator==(TIME const &t1, TIME const &t2)
+{
+    return (t1.hour == t2.hour) && (t1.minute == t2.minute) && (t1.second == t2.second); // compare each part of two times
+}
+
+bool operator!=(TIME const &t1, TIME const &t2)
+{
+    return !(t1 == t2); // call operator==
+}
+
+istream &operator>>(istream &is, TIME &t) // should use iteration!
+{
+    TIME tmp{};
+
+    is >> tmp.hour;
+    is.ignore(1024, ':');
+    is >> tmp.minute;
+    is.ignore(1024, ':');
+    is >> tmp.second;
+    if (!is_valid(tmp))
+    {
+        is.setstate(ios_base::failbit); // set a fail flag
+    }
+    else
+    {
+        t.hour = tmp.hour;
+        t.minute = tmp.minute;
+        t.second = tmp.second;
+    }
+
+    return is;
+}
+
+// Edwin edit: adding cout
+ostream &operator<<(ostream &os, TIME const &t)
+{
+    os << to_string(t);
+    return os;
+}
+// end of cout
+
+void error()
+{
+    cerr << "ERROR: Illegal Time!" << endl;
+}
+
+/*void fix(istream &is)
+{
+    if (is.fail())
+    {
+        error();
+        is.clear();
+        is.ignore(1024, '\n');
+    }
+}*/
+
+void modify(TIME &t)
+{
+    while (!is_valid(t))
+    {
+        if (t.second > 59)
+        {
+            t.minute = t.second / 60 + t.minute;
+            t.second %= 60;
+        }
+        else if (t.second < 0)
+        {
+            t.minute = t.minute - static_cast<int>(ceil(t.second * (-1) / 60.0));
+            t.second = (60 - t.second * (-1) % 60) % 60;
+        }
+        else if (t.minute > 59)
+        {
+            t.hour = t.minute / 60 + t.hour;
+            t.minute %= 60;
+        }
+        else if (t.minute < 0)
+        {
+            t.hour = t.hour - static_cast<int>(ceil(t.minute * (-1) / 60.0));
+            t.minute = ((60 - t.minute * (-1)) % 60) % 60;
+        }
+        else if (t.hour > 23)
+        {
+            t.hour %= 24;
+        }
+        else
+        {
+            t.hour = (24 - t.hour * (-1)) % 24;
+        }
+    }
+}
