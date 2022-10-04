@@ -15,6 +15,7 @@ private:
     };
   };
   ListNode *FirstNode;
+  int ListLength;
 
 public:
   List();                                // normal constructor
@@ -24,20 +25,35 @@ public:
   void remove(int const &insValue);
   void insert(int const &delValue); // Done
   void print() const;
-  int getValue(int const &n);
+  int findIndex(int const &n); // find Index according value:n
+  int getValue(int const &n);  // get Value according index:n
 };
 
 List::List()
 {
   FirstNode = nullptr;
+  ListLength = 0;
 }
 
 List::List(std::initializer_list<int> list)
 {
   FirstNode = nullptr;
+  ListLength = 0;
   for (int i : list)
   {
     insert(i);
+  }
+}
+
+List::List(List const &theList)
+{
+  FirstNode = nullptr;
+  ListLength = 0;
+  ListNode *tmp = theList.FirstNode;
+  while (tmp != nullptr)
+  {
+    insert(tmp->value);
+    tmp = tmp->next;
   }
 }
 
@@ -64,6 +80,7 @@ void List::insert(int const &insValue)
     {
       tmp->next = FirstNode;
       FirstNode = tmp;
+      ++ListLength;
     }
     else
     {
@@ -80,16 +97,19 @@ void List::insert(int const &insValue)
         {
           tmp->next = CurrentNode;
           PreviousNode->next = tmp;
+          ++ListLength;
         }
         else // insert node is the biggest
         {
           CurrentNode->next = tmp;
+          ++ListLength;
         }
       }
       else // at the internial of the list
       {
         tmp->next = CurrentNode;
         PreviousNode->next = tmp;
+        ++ListLength;
       }
     }
   }
@@ -143,10 +163,11 @@ void List::print() const
   ListNode *CurrentNode = FirstNode;
   if (CurrentNode == nullptr)
   {
-    std::cerr << "List is Empty" << std::endl;
+    std::cerr << "List is Empty";
   }
   else
   {
+
     while (CurrentNode != nullptr)
     {
       std::cout << CurrentNode->value << " ";
@@ -158,14 +179,4 @@ void List::print() const
 
 int main()
 {
-  List l{5, 3, 9, 7};
-  l.print();
-  l.remove(5);
-  l.print();
-  l.remove(3);
-  l.print();
-  l.remove(9);
-  l.print();
-  l.remove(7);
-  l.print();
 }
