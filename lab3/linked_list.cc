@@ -105,19 +105,35 @@ void List::remove(int const &delValue)
   {
     ListNode *tmp = FirstNode;
     ListNode *PreviousNode = tmp;
-    while (tmp->value != delValue && tmp->next != nullptr)
+    if (delValue == FirstNode->value)
     {
-      PreviousNode = tmp;
-      tmp = tmp->next;
-    }
-    if (tmp->next == nullptr)
-    {
-      std::cout << "Not exist" << std::endl;
+      FirstNode = FirstNode->next;
+      delete tmp;
     }
     else
     {
-      PreviousNode->next = tmp->next;
-      delete tmp;
+      while (tmp->value != delValue && tmp->next != nullptr)
+      {
+        PreviousNode = tmp;
+        tmp = tmp->next;
+      }
+      if (tmp->next == nullptr)
+      {
+        if (tmp->value != delValue)
+        {
+          std::cout << "Not exist" << std::endl;
+        }
+        else
+        {
+          PreviousNode->next = nullptr;
+          delete tmp;
+        }
+      }
+      else
+      {
+        PreviousNode->next = tmp->next;
+        delete tmp;
+      }
     }
   }
 }
@@ -143,5 +159,13 @@ void List::print() const
 int main()
 {
   List l{5, 3, 9, 7};
+  l.print();
+  l.remove(5);
+  l.print();
+  l.remove(3);
+  l.print();
+  l.remove(9);
+  l.print();
+  l.remove(7);
   l.print();
 }
