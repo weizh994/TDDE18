@@ -26,8 +26,8 @@ public:
   void insert(int const &delValue);      // Done
   void print() const;
   List &operator=(List const &rightList);
-  int findIndex(int const &n) const; // find Index according value:n
-  int getValue(int const &n) const;  // get Value according index:n
+  int findIndex(int const &n) const; // Done   find Index according value:n
+  int getValue(int const &n) const;  // Done   get Value according index:n
 };
 
 List::List()
@@ -191,16 +191,35 @@ void List::print() const
   std::cout << std::endl;
 }
 
+int List::findIndex(int const &n) const
+{
+  ListNode *tmp = FirstNode;
+  int index = 1;
+  while (tmp->value != n)
+  {
+    index++;
+    if (index > ListLength) // get the end of the List, value does not exist
+    {
+      return -1;
+    }
+    else
+    {
+      tmp = tmp->next;
+    }
+  }
+  return index;
+}
+
 int List::getValue(int const &n) const
 {
-  if (n > ListLength)
+  if (n > ListLength) // illigal search
   {
     return -1;
   }
   else
   {
     ListNode *tmp = FirstNode;
-    for (int i = 0; i < n; ++i)
+    for (int i = 1; i < n; ++i)
     {
       tmp = tmp->next;
     }
@@ -212,4 +231,6 @@ int main()
 {
   List l1{3, 4, 5, 6, 7};
   l1.print();
+  std::cout << l1.findIndex(7) << std::endl;
+  std::cout << l1.findIndex(9) << std::endl;
 }
