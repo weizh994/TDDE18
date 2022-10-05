@@ -16,3 +16,4 @@ lab3/linked_list
 tdde18.code-workspace
 .vscode/tasks.json
 cmake-build-debug/CMakeFiles/clion-log.txt
+.vscode/settings.json

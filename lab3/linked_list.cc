@@ -22,11 +22,12 @@ public:
   List(std::initializer_list<int> list); // constructor with initializer_list
   List(List const &theList);             // copy constructor
   ~List();                               // destructor
-  void remove(int const &insValue);
-  void insert(int const &delValue); // Done
+  void remove(int const &insValue);      // Done
+  void insert(int const &delValue);      // Done
   void print() const;
-  int findIndex(int const &n); // find Index according value:n
-  int getValue(int const &n);  // get Value according index:n
+  List &operator=(List const &rightList);
+  int findIndex(int const &n) const; // find Index according value:n
+  int getValue(int const &n) const;  // get Value according index:n
 };
 
 List::List()
@@ -67,11 +68,24 @@ List::~List()
   }
 }
 
+List &List::operator=(List const &rightList)
+{
+  List::~List();
+  ListNode *tmp = rightList.FirstNode;
+  while (tmp != nullptr)
+  {
+    insert(tmp->value);
+    tmp = tmp->next;
+  }
+  return *this;
+}
+
 void List::insert(int const &insValue)
 {
   if (FirstNode == nullptr)
   {
     FirstNode = new ListNode(insValue);
+    ++ListLength;
   }
   else
   {
@@ -177,6 +191,25 @@ void List::print() const
   std::cout << std::endl;
 }
 
+int List::getValue(int const &n) const
+{
+  if (n > ListLength)
+  {
+    return -1;
+  }
+  else
+  {
+    ListNode *tmp = FirstNode;
+    for (int i = 0; i < n; ++i)
+    {
+      tmp = tmp->next;
+    }
+    return tmp->value;
+  }
+}
+
 int main()
 {
+  List l1{3, 4, 5, 6, 7};
+  l1.print();
 }
