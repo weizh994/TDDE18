@@ -20,14 +20,16 @@ private:
 public:
   List();                                // normal constructor
   List(std::initializer_list<int> list); // constructor with initializer_list
-  List(List const &theList);             // copy constructor
+  List(List const &otherList);           // copy constructor
+  List(List &&otherList);                // move constructor;
   ~List();                               // destructor
   void remove(int const &insValue);      // Done
   void insert(int const &delValue);      // Done
   void print() const;
-  List &operator=(List const &rightList);
-  int findIndex(int const &n) const; // Done   find Index according value:n
-  int getValue(int const &n) const;  // Done   get Value according index:n
+  List &operator=(List const &rightList); // copy assignment operator
+  List &operator=(List &&rightList);      // move assignment operator
+  int findIndex(int const &n) const;      // Done   find Index according value:n
+  int getValue(int const &n) const;       // Done   get Value according index:n
 };
 
 List::List()
@@ -46,16 +48,23 @@ List::List(std::initializer_list<int> list)
   }
 }
 
-List::List(List const &theList)
+List::List(List const &otherList)
 {
   FirstNode = nullptr;
   ListLength = 0;
-  ListNode *tmp = theList.FirstNode;
+  ListNode *tmp = otherList.FirstNode;
   while (tmp != nullptr)
   {
     insert(tmp->value);
     tmp = tmp->next;
   }
+}
+
+List::List(List &&otherList)
+{
+  FirstNode = otherList.FirstNode;
+  ListLength = otherList.ListLength;
+  otherList.FirstNode = nullptr;
 }
 
 List::~List()
@@ -80,23 +89,31 @@ List &List::operator=(List const &rightList)
   return *this;
 }
 
+List &List::operator=(List &&rightList)
+{
+  List::~List();
+  FirstNode = rightList.FirstNode;
+  rightList.FirstNode = nullptr;
+  return *this;
+}
+
 void List::insert(int const &insValue)
 {
-  if (FirstNode == nullptr)
+  if (FirstNode == nullptr) // empty list
   {
     FirstNode = new ListNode(insValue);
     ++ListLength;
   }
-  else
+  else // not empty
   {
     ListNode *tmp = new ListNode(insValue);
-    if (tmp->value <= FirstNode->value)
+    if (tmp->value <= FirstNode->value) // smallest Node
     {
       tmp->next = FirstNode;
       FirstNode = tmp;
       ++ListLength;
     }
-    else
+    else // in the List OR at the end
     {
       ListNode *CurrentNode = FirstNode;
       ListNode *PreviousNode = FirstNode;
@@ -229,8 +246,5 @@ int List::getValue(int const &n) const
 
 int main()
 {
-  List l1{3, 4, 5, 6, 7};
-  l1.print();
-  std::cout << l1.findIndex(7) << std::endl;
-  std::cout << l1.findIndex(9) << std::endl;
+
 }
