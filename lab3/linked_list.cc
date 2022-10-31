@@ -35,6 +35,7 @@ List::List(List &&otherList)
   FirstNode = otherList.FirstNode;
   ListLength = otherList.ListLength;
   otherList.FirstNode = nullptr;
+  otherList.ListLength = 0;
 }
 
 List::~List()
@@ -65,6 +66,7 @@ List &List::operator=(List &&rightList)
   List::~List();
   FirstNode = rightList.FirstNode;
   rightList.FirstNode = nullptr;
+  rightList.ListLength = 0;
   return *this;
 }
 
@@ -225,8 +227,4 @@ bool List::is_empty() const
 int List::size() const
 {
   return ListLength;
-}
-
-int main()
-{
 }
