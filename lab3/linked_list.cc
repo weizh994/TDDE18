@@ -131,6 +131,7 @@ void List::remove(int const &delValue)
     {
       FirstNode = FirstNode->next;
       delete tmp;
+      --ListLength;
     }
     else
     {
@@ -149,12 +150,14 @@ void List::remove(int const &delValue)
         {
           PreviousNode->next = nullptr;
           delete tmp;
+          --ListLength;
         }
       }
       else
       {
         PreviousNode->next = tmp->next;
         delete tmp;
+        --ListLength;
       }
     }
   }
@@ -213,6 +216,15 @@ int List::getValue(int const &n) const
     }
     return tmp->value;
   }
+}
+
+bool List::is_empty() const
+{
+  return FirstNode == nullptr;
+}
+int List::size() const
+{
+  return ListLength;
 }
 
 int main()

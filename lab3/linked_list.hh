@@ -47,5 +47,7 @@ public:
   List &operator=(List &&rightList);      // Done   move assignment operator
   int findIndex(int const &n) const;      // Done   find Index according value:n
   int getValue(int const &n) const;       // Done   get Value according index:n
+  bool is_empty() const;
+  int size() const;
 };
 #endif // TDDE18_LINKED_LIST_H
