@@ -14,18 +14,19 @@
 // (Must be in only one place!)
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-
+#include "linked_list.hh"
 #include <random>
 
 //=======================================================================
 // Test cases
 //=======================================================================
 
-TEST_CASE( "Create an empty list" ) {
-  Sorted_List l{};
+TEST_CASE("Create an empty list")
+{
+  List l{};
 
-  REQUIRE( l.is_empty() == true );
-  REQUIRE( l.size() == 0 );
+  REQUIRE(l.is_empty() == true);
+  REQUIRE(l.size() == 0);
 }
 
 // It is your job to create new test cases and fully test your Sorted_List class
