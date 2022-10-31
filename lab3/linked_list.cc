@@ -82,11 +82,12 @@ List::List(List &&otherList)
 
 List::~List()
 {
-  while (FirstNode != nullptr)
+  if (FirstNode != nullptr)
   {
     ListNode *temp = FirstNode;
     FirstNode = FirstNode->next;
     delete temp;
+    List::~List();
   }
 }
 
