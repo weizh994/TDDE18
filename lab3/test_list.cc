@@ -27,6 +27,7 @@ TEST_CASE("Create an empty list")
   REQUIRE(l.is_empty() == true);
   REQUIRE(l.size() == 0);
 }
+
 TEST_CASE("Add some value")
 {
   List l{};
