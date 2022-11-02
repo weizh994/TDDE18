@@ -17,3 +17,5 @@ tdde18.code-workspace
 .vscode/tasks.json
 cmake-build-debug/CMakeFiles/clion-log.txt
 .vscode/settings.json
+lab3/test_main.o
+lab3/test_main.o
