@@ -45,13 +45,14 @@ List::~List()
     ListNode *temp = FirstNode;
     FirstNode = FirstNode->next;
     delete temp;
-    List::~List();
+    this->~List();
   }
+  else return;
 }
 
 List &List::operator=(List const &rightList)
 {
-  List::~List();
+  this->~List();
   ListNode *tmp = rightList.FirstNode;
   while (tmp != nullptr)
   {
@@ -63,7 +64,7 @@ List &List::operator=(List const &rightList)
 
 List &List::operator=(List &&rightList)
 {
-  List::~List();
+  this->~List();
   FirstNode = rightList.FirstNode;
   rightList.FirstNode = nullptr;
   rightList.ListLength = 0;
