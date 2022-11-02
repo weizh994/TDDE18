@@ -152,6 +152,21 @@ TEST_CASE(" move ")
   
 
 }
+TEST_CASE(" move with equal to ")
+{
+  List l1{5, 3, 9, 7};
+  List l2{};
+  CHECK_FALSE(l1.is_empty());
+  CHECK(l1.size() == 4);
+  l2=std::move(l1);
+  CHECK(l1.is_empty());
+  CHECK(l1.size() == 0);
+  CHECK(l2.is_empty() == false);
+  CHECK(l2.size() == 4);
+  
+
+}
+
 
 
 // It is your job to create new test cases and fully test your Sorted_List class
