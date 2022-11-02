@@ -12,7 +12,6 @@
 
 // This define lets Catch create the main test program
 // (Must be in only one place!)
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "linked_list.hh"
 #include <random>
