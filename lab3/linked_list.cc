@@ -64,6 +64,7 @@ List &List::operator=(List const &rightList)
 List &List::operator=(List &&rightList)
 {
   this->~List();
+  ListLength = rightList.ListLength;
   FirstNode = rightList.FirstNode;
   rightList.FirstNode = nullptr;
   rightList.ListLength = 0;
