@@ -1,5 +1,5 @@
 # Inheritance & Polymorphism
-[1. std::vector](#1std::vector)  
+[1. std::vector](#1-stdvector)  
 [2. Inheritance](#2-inheritance)  
 [3. Polymorphism](#3-polymorphism)  
 [4. Type of information](#4-type-of-information)  
@@ -467,7 +467,7 @@ if (cuboid != nullptr)
     cout << cuboid->volume() << endl;
 }
 ```
-## 5. Exceptions(异常)
+## 5. Exceptions
 Model
 ```c++
 int main()
