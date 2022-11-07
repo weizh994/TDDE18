@@ -1,6 +1,6 @@
 #include <iostream>
 #include <initializer_list>
-#include "linked_list.hh"
+#include "linked_list.h"
 
 List::List()
 {
