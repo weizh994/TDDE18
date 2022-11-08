@@ -6,20 +6,21 @@
 
 struct Connection
 {
-  double Volt{};
-  bool can_change{true};
+  double Volt;
+  bool can_change;
+  Connection() { can_change = true; };
 };
 
 class Component
 {
 protected:
-  std::string Name{};
-  Connection *V_P{nullptr};
-  Connection *V_N{nullptr};
+  std::string Name;
+  Connection &V_P;
+  Connection &V_N;
 
 public:
-  Component(const std::string &name, Connection P, Connection N)
-      : Name{name}, V_P{&P}, V_N{&N} {}
+  Component(const std::string &name, Connection &P, Connection &N)
+      : Name(name), V_P(P), V_N(N) {}
   virtual ~Component() = default;
   virtual double returnCurr()
   {
@@ -32,7 +33,7 @@ public:
   };
   double getVolt() const
   {
-    return abs((V_P->Volt) - (V_N->Volt));
+    return abs((V_P.Volt) - (V_N.Volt));
   }
 };
 
@@ -43,7 +44,7 @@ private:
 
 public:
   Battery(std::string const &name, double const &volt, Connection P, Connection N)
-      : Component{name, P, N}, Volt{volt}
+      : Component(name, P, N), Volt(volt)
   {
     setVolt();
   }
@@ -64,7 +65,7 @@ private:
 
 public:
   Resistor(std::string const &name, double const &ohm, Connection P, Connection N)
-      : Component{name, P, N}, Ohm{ohm} {}
+      : Component(name, P, N), Ohm(ohm) {}
   ~Resistor()
   {
     delete this;
@@ -80,7 +81,7 @@ private:
 
 public:
   Capacitor(std::string const &name, double const &fahrad, Connection P, Connection N)
-      : Component{name, P, N}, Fahrad{fahrad} {}
+      : Component(name, P, N), Fahrad(fahrad) {}
   ~Capacitor()
   {
     delete this;
@@ -89,6 +90,6 @@ public:
   void changeVolt(double const time_step) override;
 };
 
-void simulate(vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step);
+void simulate(std::vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step);
 
 #endif
