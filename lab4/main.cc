@@ -5,11 +5,16 @@
 #include <iomanip>
 using namespace std;
 
-/*void simulate(vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step)
+void simulate(vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step)
 {
   for (Component *const &Component : net)
   {
-    cout << Component->returnName() << setw(5);
+    cout << Component->returnName() << setw(10);
+  }
+  cout << setprecision(2) << endl;
+  for (Component *const &Component : net)
+  {
+    cout << "Volt" << setw(5) << "Curr" << setw(5);
   }
   cout << setprecision(2) << endl;
   for (size_t i = 0; i < line_print; i++)
@@ -27,19 +32,22 @@ using namespace std;
     }
     cout << endl;
   }
-}*/
+}
 
 int main()
 {
-  Connection p, n;
-  //vector<Component *> net;
-  Battery b("Bat", 24.0,&p, &n);
-  // net.push_back(&b);
-  // cout << net[0]->returnCurr() << endl;
-  cout<<b.returnName()<<endl;
-  cout << "Volt: " << b.getVolt()
-       << "Curr:" << b.returnCurr()
-       << endl;
-  // simulate(net, 10000, 10, 0.1);
+  Connection p, n, a, b;
+  vector<Component *> net;
+  Battery b1("Bat", 24.0, &p, &n);
+  Resistor r1("R1", 6.0, &p, &a);
+  Resistor r2("R2", 4.0, &a, &b);
+  Resistor r3("R3", 8.0, &b, &n);
+  Resistor r4("R4", 12.0, &a, &n);
+  net.push_back(&b1);
+  net.push_back(&r1);
+  net.push_back(&r2);
+  net.push_back(&r3);
+  net.push_back(&r4);
+  simulate(net, 10000, 10, 0.1);
   // deallocate_components(net);
 }

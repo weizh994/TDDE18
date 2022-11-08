@@ -3,12 +3,17 @@
 #include <string>
 #include <vector>
 #include <math.h>
+#include <iostream>
 
 struct Connection
 {
   double Volt;
   bool can_change;
-  //Connection() { can_change = true; };
+  Connection()
+  {
+    Volt = 0;
+    can_change = true;
+  }
 };
 
 class Component
@@ -20,13 +25,16 @@ protected:
 
 public:
   Component(const std::string &name, Connection *P, Connection *N)
-    : Name{name}, V_P{P}, V_N{N} {}
-  /*virtual*/ ~Component(){} //= default;
+      : Name{name}, V_P{P}, V_N{N} {}
+  /*virtual*/ ~Component() {} //= default;
   virtual double returnCurr()
   {
     return 0.0;
   }
-  //virtual void changeVolt(double const time_step)=0;
+  virtual void changeVolt(double const &time_step)
+  {
+    std::cout << "Wrong Call" << std::endl;
+  }
   std::string returnName()
   {
     return Name;
@@ -50,28 +58,24 @@ public:
   }
 
   //~Battery();
-  // double returnCurr() override;
   void setVolt();
-  //void changeVolt(double const time_step) override;
+  void changeVolt(double const &time_step) override;
 };
 
-/*class Resistor : public Component
+class Resistor : public Component
 {
 private:
   double Ohm;
 
 public:
-  Resistor(std::string const &name, double const &ohm, Connection P, Connection N)
-      : Component(name, P, N), Ohm(ohm) {}
-  ~Resistor()
-  {
-    delete this;
-  };
+  Resistor(std::string const &name, double const &ohm, Connection *P, Connection *N)
+      : Component{name, P, N}, Ohm{ohm} {}
+  //~Resistor() {}
   double returnCurr() override;
-  void changeVolt(double const time_step) override;
+  void changeVolt(double const &time_step) override;
 };
 
-class Capacitor : public Component
+/*class Capacitor : public Component
 {
 private:
   double Fahrad;
