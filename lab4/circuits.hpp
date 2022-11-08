@@ -4,8 +4,6 @@
 #include <vector>
 #include <math.h>
 
-// void simulate(vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step);
-
 struct Connection
 {
   double Volt{};
@@ -15,9 +13,9 @@ struct Connection
 class Component
 {
 protected:
-  std::string Name;
-  Connection *V_P;
-  Connection *V_N;
+  std::string Name{};
+  Connection *V_P{nullptr};
+  Connection *V_N{nullptr};
 
 public:
   Component(const std::string &name, Connection P, Connection N)
@@ -28,6 +26,10 @@ public:
     return 0.0;
   };
   virtual void changeVolt(double const time_step);
+  std::string returnName()
+  {
+    return Name;
+  };
   double getVolt() const
   {
     return abs((V_P->Volt) - (V_N->Volt));
@@ -46,7 +48,8 @@ public:
     setVolt();
   }
 
-  ~Battery(){
+  ~Battery()
+  {
     delete this;
   };
   // double returnCurr() override;
@@ -62,7 +65,10 @@ private:
 public:
   Resistor(std::string const &name, double const &ohm, Connection P, Connection N)
       : Component{name, P, N}, Ohm{ohm} {}
-  ~Resistor(){delete this};
+  ~Resistor()
+  {
+    delete this;
+  };
   double returnCurr() override;
   void changeVolt(double const time_step) override;
 };
@@ -75,9 +81,14 @@ private:
 public:
   Capacitor(std::string const &name, double const &fahrad, Connection P, Connection N)
       : Component{name, P, N}, Fahrad{fahrad} {}
-  ~Capacitor(){delete this};
+  ~Capacitor()
+  {
+    delete this;
+  };
   double returnCurr() override;
   void changeVolt(double const time_step) override;
 };
+
+void simulate(vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step);
 
 #endif
