@@ -4,14 +4,15 @@
 #include <vector>
 using namespace std;
 
-void Battery::setVolt(double Volt, Connection *V_P, Connection *V_N)
+void Battery::setVolt()
 {
   V_P->Volt = this->Volt;
   V_P->can_change = false;
   V_N->Volt = 0;
   V_N->can_change = false;
 }
-double Battery::returnCurr()
+void Battery::changeVolt(double const time_step)
 {
-  return 0.0;
+  V_P->Volt = this->Volt;
+  V_N->Volt = 0.0;
 }
