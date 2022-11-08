@@ -46,7 +46,9 @@ public:
     setVolt();
   }
 
-  ~Battery();
+  ~Battery(){
+    delete this;
+  };
   // double returnCurr() override;
   void setVolt();
   void changeVolt(double const time_step) override;
@@ -60,7 +62,7 @@ private:
 public:
   Resistor(std::string const &name, double const &ohm, Connection P, Connection N)
       : Component{name, P, N}, Ohm{ohm} {}
-  ~Resistor();
+  ~Resistor(){delete this};
   double returnCurr() override;
   void changeVolt(double const time_step) override;
 };
@@ -73,7 +75,7 @@ private:
 public:
   Capacitor(std::string const &name, double const &fahrad, Connection P, Connection N)
       : Component{name, P, N}, Fahrad{fahrad} {}
-  ~Capacitor();
+  ~Capacitor(){delete this};
   double returnCurr() override;
   void changeVolt(double const time_step) override;
 };
