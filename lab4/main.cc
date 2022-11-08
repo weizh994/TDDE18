@@ -5,7 +5,7 @@
 #include <iomanip>
 using namespace std;
 
-void simulate(vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step)
+/*void simulate(vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step)
 {
   for (Component *const &Component : net)
   {
@@ -27,15 +27,16 @@ void simulate(vector<Component *> net, int const &num_iterations, int const &lin
     }
     cout << endl;
   }
-}
+}*/
 
 int main()
 {
   Connection p, n;
-  vector<Component *> net;
-  Battery b("Bat", 24.0, p, n);
+  //vector<Component *> net;
+  Battery b("Bat", 24.0,&p, &n);
   // net.push_back(&b);
   // cout << net[0]->returnCurr() << endl;
+  cout<<b.returnName()<<endl;
   cout << "Volt: " << b.getVolt()
        << "Curr:" << b.returnCurr()
        << endl;

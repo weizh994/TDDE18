@@ -8,32 +8,32 @@ struct Connection
 {
   double Volt;
   bool can_change;
-  Connection() { can_change = true; };
+  //Connection() { can_change = true; };
 };
 
 class Component
 {
 protected:
   std::string Name;
-  Connection &V_P;
-  Connection &V_N;
+  Connection *V_P;
+  Connection *V_N;
 
 public:
-  Component(const std::string &name, Connection &P, Connection &N)
-      : Name(name), V_P(P), V_N(N) {}
-  virtual ~Component() = default;
+  Component(const std::string &name, Connection *P, Connection *N)
+    : Name{name}, V_P{P}, V_N{N} {}
+  /*virtual*/ ~Component(){} //= default;
   virtual double returnCurr()
   {
     return 0.0;
-  };
-  virtual void changeVolt(double const time_step);
+  }
+  //virtual void changeVolt(double const time_step)=0;
   std::string returnName()
   {
     return Name;
-  };
+  }
   double getVolt() const
   {
-    return abs((V_P.Volt) - (V_N.Volt));
+    return abs((V_P->Volt) - (V_N->Volt));
   }
 };
 
@@ -43,22 +43,19 @@ private:
   double Volt;
 
 public:
-  Battery(std::string const &name, double const &volt, Connection P, Connection N)
-      : Component(name, P, N), Volt(volt)
+  Battery(std::string const &name, double const &volt, Connection *P, Connection *N)
+      : Component{name, P, N}, Volt{volt}
   {
     setVolt();
   }
 
-  ~Battery()
-  {
-    delete this;
-  };
+  //~Battery();
   // double returnCurr() override;
   void setVolt();
-  void changeVolt(double const time_step) override;
+  //void changeVolt(double const time_step) override;
 };
 
-class Resistor : public Component
+/*class Resistor : public Component
 {
 private:
   double Ohm;
@@ -91,5 +88,5 @@ public:
 };
 
 void simulate(std::vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step);
-
+*/
 #endif
