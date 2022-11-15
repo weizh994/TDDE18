@@ -31,7 +31,7 @@ public:
   {
     return 0.0;
   }
-  virtual void changeVolt(double const &time_step)
+  virtual void changeVolt(double time_step)
   {
     std::cout << "Wrong Call" << std::endl;
   }
@@ -51,7 +51,7 @@ private:
   double Volt;
 
 public:
-  Battery(std::string const &name, double const &volt, Connection *P, Connection *N)
+  Battery(std::string const &name, double volt, Connection *P, Connection *N)
       : Component{name, P, N}, Volt{volt}
   {
     setVolt();
@@ -59,7 +59,7 @@ public:
 
   //~Battery();
   void setVolt();
-  void changeVolt(double const &time_step) override;
+  void changeVolt(double time_step) override;
 };
 
 class Resistor : public Component
@@ -68,11 +68,11 @@ private:
   double Ohm;
 
 public:
-  Resistor(std::string const &name, double const &ohm, Connection *P, Connection *N)
+  Resistor(std::string const &name, double ohm, Connection *P, Connection *N)
       : Component{name, P, N}, Ohm{ohm} {}
   //~Resistor() {}
   double returnCurr() override;
-  void changeVolt(double const &time_step) override;
+  void changeVolt(double time_step) override;
 };
 
 /*class Capacitor : public Component
@@ -81,16 +81,15 @@ private:
   double Fahrad;
 
 public:
-  Capacitor(std::string const &name, double const &fahrad, Connection P, Connection N)
+  Capacitor(std::string const &name, double fahrad, Connection P, Connection N)
       : Component(name, P, N), Fahrad(fahrad) {}
   ~Capacitor()
   {
     delete this;
   };
   double returnCurr() override;
-  void changeVolt(double const time_step) override;
+  void changeVolt(double time_step) override;
 };
 
-void simulate(std::vector<Component *> net, int const &num_iterations, int const &line_print, double const time_step);
 */
 #endif

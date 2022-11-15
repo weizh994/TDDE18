@@ -9,7 +9,7 @@ double Resistor::returnCurr()
 {
   return getVolt() / Ohm;
 }
-void Resistor::changeVolt(double const &time_step)
+void Resistor::changeVolt(double time_step)
 {
   if (V_P->can_change)
   {

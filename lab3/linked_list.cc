@@ -2,16 +2,14 @@
 #include <initializer_list>
 #include "linked_list.h"
 
+// TODO: Complementary work needed: Use member initializer lists instead of
+// assigning initial values inside the constructor.
 List::List()
-{
-  FirstNode = nullptr;
-  ListLength = 0;
-}
+    : FirstNode{nullptr}, ListLength{0} {}
 
 List::List(std::initializer_list<int> list)
+    : FirstNode{nullptr}, ListLength{0}
 {
-  FirstNode = nullptr;
-  ListLength = 0;
   for (int i : list)
   {
     insert(i);
@@ -19,9 +17,9 @@ List::List(std::initializer_list<int> list)
 }
 
 List::List(List const &otherList)
+    : FirstNode{nullptr}, ListLength{0}
 {
-  FirstNode = nullptr;
-  ListLength = 0;
+
   ListNode *tmp = otherList.FirstNode;
   while (tmp != nullptr)
   {
@@ -31,9 +29,8 @@ List::List(List const &otherList)
 }
 
 List::List(List &&otherList)
+    : FirstNode{otherList.FirstNode}, ListLength{otherList.ListLength}
 {
-  FirstNode = otherList.FirstNode;
-  ListLength = otherList.ListLength;
   otherList.FirstNode = nullptr;
   otherList.ListLength = 0;
 }
@@ -49,6 +46,9 @@ List::~List()
   }
 }
 
+// TODO: Complementary work needed: Code duplication. Can you perhaps
+// reuse the code from the copy constructor by creating a local copy
+// of other?
 List &List::operator=(List const &rightList)
 {
   this->~List();
@@ -71,7 +71,7 @@ List &List::operator=(List &&rightList)
   return *this;
 }
 
-void List::insert(int const &insValue)
+void List::insert(int insValue)
 {
   if (FirstNode == nullptr) // empty list
   {
@@ -96,10 +96,13 @@ void List::insert(int const &insValue)
         PreviousNode = CurrentNode;
         CurrentNode = CurrentNode->next;
       }
+
       if (CurrentNode->next == nullptr) // at the end of the list
       {
         if (tmp->value <= CurrentNode->value) // last node larger than insert node
         {
+          // TODO: Complementary work needed: code duplication
+          // (exactly the same code occurs further down)
           tmp->next = CurrentNode;
           PreviousNode->next = tmp;
           ++ListLength;
@@ -120,7 +123,7 @@ void List::insert(int const &insValue)
   }
 }
 
-void List::remove(int const &delValue)
+void List::remove(int delValue)
 {
   if (FirstNode == nullptr)
   {
@@ -151,6 +154,8 @@ void List::remove(int const &delValue)
         }
         else
         {
+          // TODO: Complementary work needed: code duplication
+          // (exactly the same code occurs further down)
           PreviousNode->next = nullptr;
           delete tmp;
           --ListLength;
@@ -185,7 +190,7 @@ void List::print() const
   std::cout << std::endl;
 }
 
-int List::findIndex(int const &n) const
+int List::findIndex(int n) const
 {
   ListNode *tmp = FirstNode;
   int index = 1;
@@ -204,7 +209,7 @@ int List::findIndex(int const &n) const
   return index;
 }
 
-int List::getValue(int const &n) const
+int List::getValue(int n) const
 {
   if (n > ListLength) // illigal search
   {

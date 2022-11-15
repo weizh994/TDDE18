@@ -5,6 +5,11 @@
 #ifndef TDDE18_LINKED_LIST_H
 #define TDDE18_LINKED_LIST_H
 #include <initializer_list>
+
+// TODO: Complementary work needed: Pass primitives (int, float, double...) by value,
+// not as const &. A reference takes up more memory instead of just copying the value
+// in these cases.
+
 class List
 {
 private:
@@ -16,7 +21,7 @@ private:
     ListNode *next;
 
     // public:
-    ListNode(int const &newValue) // Node constructor
+    ListNode(int newValue) // Node constructor
     {
       value = newValue;
       next = nullptr;
@@ -24,7 +29,7 @@ private:
   };
   int ListLength;
   ListNode *FirstNode;
-  ListNode *getNode(int const &index) const
+  ListNode *getNode(int index) const
   {
     ListNode *tmp = FirstNode;
     for (int i = 1; i < index; ++i)
@@ -40,13 +45,13 @@ public:
   List(List const &otherList);           // copy constructor
   List(List &&otherList);                // move constructor;
   ~List();                               // destructor
-  void remove(int const &insValue);      // Done
-  void insert(int const &delValue);      // Done
+  void remove(int insValue);             // Done
+  void insert(int delValue);             // Done
   void print() const;
-  List &operator=(List const &rightList); // Done   copy assignment operator
-  List &operator=(List &&rightList);      // Done   move assignment operator
-  int findIndex(int const &n) const;      // Done   find Index according value:n
-  int getValue(int const &n) const;       // Done   get Value according index:n
+  List &operator=(List const &rightList);   // Done   copy assignment operator
+  List &operator=(List &&rightList); // Done   move assignment operator
+  int findIndex(int n) const;        // Done   find Index according value:n
+  int getValue(int n) const;         // Done   get Value according index:n
   bool is_empty() const;
   int size() const;
 };
