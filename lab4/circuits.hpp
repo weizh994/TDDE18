@@ -43,6 +43,16 @@ public:
   {
     return abs((V_P->Volt) - (V_N->Volt));
   }
+  void checkNP()
+  {
+    if (V_N->Volt > V_P->Volt)
+    {
+      Connection *temp;
+      temp = V_N;
+      V_N = V_P;
+      V_P = temp;
+    }
+  }
 };
 
 class Battery : public Component
@@ -75,21 +85,18 @@ public:
   void changeVolt(double time_step) override;
 };
 
-/*class Capacitor : public Component
+class Capacitor : public Component
 {
 private:
   double Fahrad;
+  double Charge;
 
 public:
-  Capacitor(std::string const &name, double fahrad, Connection P, Connection N)
-      : Component(name, P, N), Fahrad(fahrad) {}
-  ~Capacitor()
-  {
-    delete this;
-  };
+  Capacitor(std::string const &name, double fahrad, Connection *P, Connection *N)
+      : Component{name, P, N}, Fahrad(fahrad), Charge(0.0) {}
+  ~Capacitor() {}
   double returnCurr() override;
   void changeVolt(double time_step) override;
 };
 
-*/
 #endif
