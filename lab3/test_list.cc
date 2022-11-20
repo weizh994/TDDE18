@@ -12,6 +12,7 @@
 
 // This define lets Catch create the main test program
 // (Must be in only one place!)
+#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "linked_list.h"
 #include <random>
@@ -110,8 +111,38 @@ TEST_CASE("get some values")
   CHECK(l.getValue(4) == 9);
   CHECK(l.getValue(6) == -1);
 }
-TEST_CASE(" deep copy with '=' operator")
 
+// TODO: Complementary work needed: Test cases insufficient, you
+// should test all functionality for copy, such as remove values in
+// the copied list and if this affects the original.
+TEST_CASE("remove after deep copy")
+{
+  List l1{5, 3, 9, 7};
+  List l2{l1};
+  REQUIRE(l1.is_empty() == false);
+  REQUIRE(l1.size() == 4);
+  CHECK(l1.size() == l2.size());
+  l1.remove(3);
+  CHECK(l1.size() == 3);
+  CHECK(l2.size() == 4);
+  CHECK(l1.getValue(1) == 5);
+  CHECK(l1.getValue(2) == 7);
+  CHECK(l1.getValue(3) == 9);
+  CHECK(l2.getValue(1) == 3);
+  CHECK(l2.getValue(2) == 5);
+  CHECK(l2.getValue(3) == 7);
+  CHECK(l2.getValue(4) == 9);
+  l2.remove(7);
+  CHECK(l1.size() == 3);
+  CHECK(l2.size() == 3);
+  CHECK(l1.getValue(1) == 5);
+  CHECK(l1.getValue(2) == 7);
+  CHECK(l1.getValue(3) == 9);
+  CHECK(l2.getValue(1) == 3);
+  CHECK(l2.getValue(2) == 5);
+  CHECK(l2.getValue(3) == 9);
+}
+TEST_CASE(" deep copy with '=' operator")
 {
   List l1{5, 3, 9, 7};
   List l2{6, 7, 8, 9, 10};

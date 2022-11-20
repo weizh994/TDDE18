@@ -2,8 +2,9 @@
 #include <initializer_list>
 #include "linked_list.h"
 
-// TODO: Complementary work needed: Use member initializer lists instead of
-// assigning initial values inside the constructor.
+// TODO: Complementary work needed: You seemed to have missed some of my
+// comments. The TODO's are located in remove and insert.
+
 List::List()
     : FirstNode{nullptr}, ListLength{0} {}
 
@@ -46,9 +47,6 @@ List::~List()
   }
 }
 
-// TODO: Complementary work needed: Code duplication. Can you perhaps
-// reuse the code from the copy constructor by creating a local copy
-// of other?
 List &List::operator=(List const &rightList)
 {
   this->~List();
@@ -73,10 +71,10 @@ List &List::operator=(List &&rightList)
 
 void List::insert(int insValue)
 {
+  ++ListLength;
   if (FirstNode == nullptr) // empty list
   {
     FirstNode = new ListNode(insValue);
-    ++ListLength;
   }
   else // not empty
   {
@@ -85,7 +83,6 @@ void List::insert(int insValue)
     {
       tmp->next = FirstNode;
       FirstNode = tmp;
-      ++ListLength;
     }
     else // in the List OR at the end
     {
@@ -97,27 +94,26 @@ void List::insert(int insValue)
         CurrentNode = CurrentNode->next;
       }
 
-      if (CurrentNode->next == nullptr) // at the end of the list
+      if (CurrentNode->next == nullptr && tmp->value > CurrentNode->value) // at the end of the list
       {
-        if (tmp->value <= CurrentNode->value) // last node larger than insert node
+        CurrentNode->next = tmp;
+        /*if (tmp->value <= CurrentNode->value) // last node larger than insert node
         {
+
           // TODO: Complementary work needed: code duplication
           // (exactly the same code occurs further down)
           tmp->next = CurrentNode;
           PreviousNode->next = tmp;
-          ++ListLength;
         }
         else // insert node is the biggest
         {
           CurrentNode->next = tmp;
-          ++ListLength;
-        }
+        }*/
       }
       else // at the internial of the list
       {
         tmp->next = CurrentNode;
         PreviousNode->next = tmp;
-        ++ListLength;
       }
     }
   }
@@ -146,9 +142,10 @@ void List::remove(int delValue)
         PreviousNode = tmp;
         tmp = tmp->next;
       }
-      if (tmp->next == nullptr)
+      if (tmp->next == nullptr && tmp->value != delValue)
       {
-        if (tmp->value != delValue)
+        std::cout << "Not exist" << std::endl;
+        /*if (tmp->value != delValue)
         {
           std::cout << "Not exist" << std::endl;
         }
@@ -159,7 +156,7 @@ void List::remove(int delValue)
           PreviousNode->next = nullptr;
           delete tmp;
           --ListLength;
-        }
+        }*/
       }
       else
       {

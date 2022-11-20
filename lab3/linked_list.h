@@ -6,10 +6,6 @@
 #define TDDE18_LINKED_LIST_H
 #include <initializer_list>
 
-// TODO: Complementary work needed: Pass primitives (int, float, double...) by value,
-// not as const &. A reference takes up more memory instead of just copying the value
-// in these cases.
-
 class List
 {
 private:
@@ -47,11 +43,12 @@ public:
   ~List();                               // destructor
   void remove(int insValue);             // Done
   void insert(int delValue);             // Done
+  //void search(ListNode *PreviousNode,ListNode *CurrentNode, int Value);
   void print() const;
-  List &operator=(List const &rightList);   // Done   copy assignment operator
-  List &operator=(List &&rightList); // Done   move assignment operator
-  int findIndex(int n) const;        // Done   find Index according value:n
-  int getValue(int n) const;         // Done   get Value according index:n
+  List &operator=(List const &rightList); // Done   copy assignment operator
+  List &operator=(List &&rightList);      // Done   move assignment operator
+  int findIndex(int n) const;             // Done   find Index according value:n
+  int getValue(int n) const;              // Done   get Value according index:n
   bool is_empty() const;
   int size() const;
 };
