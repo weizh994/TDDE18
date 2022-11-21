@@ -197,7 +197,9 @@ TEST_CASE(" insert after deep copy with '=' operator")
   REQUIRE(l1.size() == 4);
   REQUIRE(l2.is_empty() == false);
   REQUIRE(l2.size() == 5);
-  l1 = l2;
+  l2 = l1;
+  CHECK(l1.size() == 4);
+  CHECK(l2.size() == 4);
   CHECK(l1.getValue(1) == l2.getValue(1));
   CHECK(l1.getValue(2) == l2.getValue(2));
   CHECK(l1.getValue(3) == l2.getValue(3));
@@ -236,7 +238,7 @@ TEST_CASE("remove after deep copy with '=' operator")
   REQUIRE(l1.size() == 4);
   REQUIRE(l2.is_empty() == false);
   REQUIRE(l2.size() == 5);
-  l1 = l2;
+  l2 = l1;
   CHECK(l1.getValue(1) == l2.getValue(1));
   CHECK(l1.getValue(2) == l2.getValue(2));
   CHECK(l1.getValue(3) == l2.getValue(3));

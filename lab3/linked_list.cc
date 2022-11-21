@@ -42,6 +42,7 @@ List::~List()
   {
     ListNode *temp = FirstNode;
     FirstNode = FirstNode->next;
+    ListLength = 0;
     delete temp;
     this->~List();
   }
