@@ -4,7 +4,8 @@
 #include <math.h>
 #include <vector>
 using namespace std;
-
+Resistor::Resistor(std::string const &name, double ohm, Connection *P, Connection *N)
+    : Component{name, P, N}, Ohm{ohm} {}
 double Resistor::returnCurr()
 {
   return getVolt() / Ohm;

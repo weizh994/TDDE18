@@ -3,7 +3,11 @@
 #include <string>
 #include <vector>
 using namespace std;
-
+Battery::Battery(std::string const &name, double volt, Connection *P, Connection *N)
+    : Component{name, P, N}, Volt{volt}
+{
+  setVolt();
+}
 void Battery::setVolt()
 {
   changeVolt(0);
