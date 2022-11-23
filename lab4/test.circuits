@@ -1,0 +1,3 @@
+Connection p l r n
+"Bat", batteryVolt, &p, &n
+"R1", 150.0, &p, &l

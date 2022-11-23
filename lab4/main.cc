@@ -62,28 +62,22 @@ int main(int argc, char **argv)
   int line_print{0};
   double time_step{0.0};
   double batteryVolt{0.0};
-  initialCircuits(argc, argv, num_iterations, line_print, time_step, batteryVolt);
-  Connection p,
-      l, r, n;
-  vector<Component *> net;
-  /*Battery b1("Bat", batteryVolt, &p, &n);
-  Resistor r1("R1", 150.0, &p, &l);
-  Resistor r2("R2", 50.0, &p, &r);
-  Capacitor c3("C3", 1.0, &l, &r);
-  Resistor r4("R4", 300.0, &l, &n);
-  Capacitor c5("C5", 0.75, &n, &r);
-  net.push_back(&b1);
-  net.push_back(&r1);
-  net.push_back(&r2);
-  net.push_back(&c3);
-  net.push_back(&r4);
-  net.push_back(&c5);*/
-  net.push_back(new Battery("Bat", batteryVolt, &p, &n));
-  net.push_back(new Resistor("R1", 150.0, &p, &l));
-  net.push_back(new Resistor("R2", 50.0, &p, &r));
-  net.push_back(new Capacitor("C3", 1.0, &l, &r));
-  net.push_back(new Resistor("R4", 300.0, &l, &n));
-  net.push_back(new Capacitor("C5", 0.75, &n, &r));
-  simulate(net, num_iterations, line_print, time_step);
-  deallocate_components(net);
+  try
+  {
+    initialCircuits(argc, argv, num_iterations, line_print, time_step, batteryVolt);
+    Connection p, l, r, n;
+    vector<Component *> net;
+    net.push_back(new Battery("Bat", batteryVolt, &p, &n));
+    net.push_back(new Resistor("R1", 150.0, &p, &l));
+    net.push_back(new Resistor("R2", 50.0, &p, &r));
+    net.push_back(new Capacitor("C3", 1.0, &l, &r));
+    net.push_back(new Resistor("R4", 300.0, &l, &n));
+    net.push_back(new Capacitor("C5", 0.75, &n, &r));
+    simulate(net, num_iterations, line_print, time_step);
+    deallocate_components(net);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << e.what();
+  }
 }
