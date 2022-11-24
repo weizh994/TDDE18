@@ -1,0 +1,2 @@
+command-line:
+ ./a.out [circuit](1~3) [num_iterations](int and larger than line_print) [line_print](int) [time_step](double) [batteryVolt](double)
