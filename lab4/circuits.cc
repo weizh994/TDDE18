@@ -55,7 +55,6 @@ void Resistor::changeVolt(double time_step)
   checkNP();
   if (V_P->can_change)
   {
-
     V_P->Volt -= returnCurr() * time_step;
   }
   if (V_N->can_change)

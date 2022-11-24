@@ -47,12 +47,12 @@ void readFile(std::string fileName)
     while (ss >> word)
     {
       CFile.push_back(word);
-      ss.clear();
     }
     for (std::string s : CFile)
     {
       std::cout << s << std::endl;
     }
+    CFile.clear();
     std::cout << "END" << std::endl;
   }
 }
@@ -60,7 +60,7 @@ void readFile(std::string fileName)
 int main(int argc, char **argv)
 {
   inputData inputData;
-  std::map<std::string, int, bool> Connection;
+  // std::map<std::string, int, bool> Connection;
   try
   {
     checkCla(argc, argv, inputData);

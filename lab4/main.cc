@@ -46,13 +46,17 @@ void initialCircuits(int argc, char **argv, int &num_iterations, int &line_print
 {
   std::vector<std::string> args{argv, argv + argc};
   if (args.size() != 5)
-    throw std::runtime_error("ERROR");
+    throw std::runtime_error("ERROR: THE NUMBER OF INPUT IS INCORRECT!");
   else
   {
     num_iterations = std::stoi(args[1]);
     line_print = std::stoi(args[2]);
     time_step = std::stod(argv[3]);
     batteryVolt = std::stod(argv[4]);
+    if (num_iterations < line_print)
+    {
+      throw std::runtime_error("ERROR: THE INPUT IS ILLEGAL!");
+    }
   }
 }
 
@@ -74,7 +78,8 @@ int main(int argc, char **argv)
     net.push_back(new Resistor("R4", 300.0, &l, &n));
     net.push_back(new Capacitor("C5", 0.75, &n, &r));
     simulate(net, num_iterations, line_print, time_step);
-    deallocate_components(net);
+    net.clear();
+    // deallocate_components(net); // can it be replaced by vector.clear()?
   }
   catch (const std::exception &e)
   {
