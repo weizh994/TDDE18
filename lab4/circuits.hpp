@@ -31,13 +31,10 @@ public:
   {
     return 0.0;
   }
-  virtual void changeVolt(double time_step)
-  {
-    std::cout << "Wrong Call" << std::endl;
-  }
+  virtual void changeVolt(double time_step);
   std::string returnName();
   double getVolt() const;
-  void checkNP();
+  // void checkNP();
 };
 
 class Battery : public Component
@@ -61,7 +58,7 @@ public:
   Resistor(std::string const &name, double ohm, Connection *P, Connection *N);
   ~Resistor() override;
   double returnCurr() override;
-  void changeVolt(double time_step) override;
+  // void changeVolt(double time_step) override;
 };
 
 class Capacitor : public Component
@@ -76,14 +73,24 @@ public:
   double returnCurr() override;
   void changeVolt(double time_step) override;
 };
-
-/*class Circuits : public Component
+/*
+class Circuits : public Component
 {
 private:
   std::vector<Component *> net;
+  int num_iterations;
+  int line_print;
+  double &time_step;
+  double batteryVolt;
 
 public:
-  Circuits(std::initializer_list<int> list);
+  Circuits(int argc, char **argv);
   ~Circuits();
+  //void initialCircuits(int argc, char **argv);
+  void simulate(vector<Component *> net, int num_iterations, int line_print, double time_step);
 };*/
+
+void simulate(std::vector<Component *> net, int num_iterations, int line_print, double time_step);
+void deallocate_components(std::vector<Component *> net);
+void initialCircuits(int argc, char **argv, int &num_iterations, int &line_print, double &time_step, double &batteryVolt);
 #endif

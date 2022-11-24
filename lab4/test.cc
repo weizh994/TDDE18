@@ -4,7 +4,8 @@
 #include <fstream>
 #include <sstream>
 #include <map>
-struct inputData
+#include"circuits.hpp"
+/*struct inputData
 {
   std::string file_name{};
   int num_iterations{0};
@@ -26,7 +27,7 @@ void checkCla(int argc, char **argv, inputData &inputData)
     inputData.batteryVolt = std::stod(argv[5]);
   }
 }
-void readFile(std::string fileName)
+void readFile(std::string fileName, auto *Connection)
 {
   std::ifstream read_file;
   read_file.open(fileName, std::ios::in);
@@ -55,16 +56,17 @@ void readFile(std::string fileName)
     CFile.clear();
     std::cout << "END" << std::endl;
   }
-}
+}*/
 
 int main(int argc, char **argv)
 {
-  inputData inputData;
-  // std::map<std::string, int, bool> Connection;
+  //inputData inputData;
+  //std::map<std::string, int, bool> Connection;
   try
   {
-    checkCla(argc, argv, inputData);
-    readFile(inputData.file_name);
+    //checkCla(argc, argv, inputData);
+    //readFile(inputData.file_name, &Connection);
+    
   }
   catch (const std::exception &e)
   {

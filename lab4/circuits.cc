@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <initializer_list>
+#include <iomanip>
 using namespace std;
 
 Component::Component(const std::string &name, Connection *P, Connection *N)
@@ -15,7 +15,32 @@ double Component::getVolt() const
 {
   return abs((V_P->Volt) - (V_N->Volt));
 }
-void Component::checkNP()
+void Component::changeVolt(double time_step)
+{
+  if (V_P->can_change)
+  {
+    if (V_P->Volt > V_N->Volt)
+    {
+      V_P->Volt -= returnCurr() * time_step;
+    }
+    else
+    {
+      V_P->Volt += returnCurr() * time_step;
+    }
+  }
+  if (V_N->can_change)
+  {
+    if (V_N->Volt < V_P->Volt)
+    {
+      V_N->Volt += returnCurr() * time_step;
+    }
+    else
+    {
+      V_N->Volt -= returnCurr() * time_step;
+    }
+  }
+}
+/*void Component::checkNP()
 {
   if (V_N->Volt > V_P->Volt)
   {
@@ -24,7 +49,7 @@ void Component::checkNP()
     V_N = V_P;
     V_P = temp;
   }
-}
+}*/
 
 Battery::Battery(std::string const &name, double volt, Connection *P, Connection *N)
     : Component{name, P, N}, Volt{volt}
@@ -50,18 +75,6 @@ double Resistor::returnCurr()
 {
   return getVolt() / Ohm;
 }
-void Resistor::changeVolt(double time_step)
-{
-  checkNP();
-  if (V_P->can_change)
-  {
-    V_P->Volt -= returnCurr() * time_step;
-  }
-  if (V_N->can_change)
-  {
-    V_N->Volt += returnCurr() * time_step;
-  }
-}
 Capacitor::Capacitor(std::string const &name, double fahrad, Connection *P, Connection *N)
     : Component{name, P, N}, Fahrad(fahrad), Charge(0.0) {}
 Capacitor::~Capacitor() {}
@@ -71,21 +84,26 @@ double Capacitor::returnCurr()
 }
 void Capacitor::changeVolt(double time_step)
 {
-  checkNP();
   Charge += returnCurr() * time_step;
-  if (V_P->can_change)
-  {
-    V_P->Volt -= returnCurr() * time_step;
-  }
-  if (V_N->can_change)
-  {
-    V_N->Volt += returnCurr() * time_step;
-  }
+  Component::changeVolt(time_step);
 }
-/*
-Circuits::Circuits(std::initializer_list<int> list)
-{
 
+/*Circuits::Circuits(int argc, char **argv)
+{
+  std::vector<std::string> args{argv, argv + argc};
+  if (args.size() != 5)
+    throw std::runtime_error("ERROR: THE NUMBER OF INPUT IS INCORRECT!");
+  else
+  {
+    num_iterations = std::stoi(args[1]);
+    line_print = std::stoi(args[2]);
+    time_step = std::stod(argv[3]);
+    batteryVolt = std::stod(argv[4]);
+    if (num_iterations < line_print)
+    {
+      throw std::runtime_error("ERROR: THE INPUT IS ILLEGAL!");
+    }
+  }
 }
 Circuits::~Circuits()
 {
@@ -93,5 +111,61 @@ Circuits::~Circuits()
   {
     delete Component;
   }
+}*/
+
+
+
+
+void simulate(vector<Component *> net, int num_iterations, int line_print, double time_step)
+{
+  for (Component *const &Component : net)
+  {
+    cout << setw(12) << Component->returnName();
+  }
+  cout << endl;
+  for (Component *const &Component : net)
+  {
+    cout << right << setw(6) << "Volt" << right << setw(6) << "Curr";
+  }
+  cout << fixed << setprecision(2) << endl;
+  for (size_t i = 0; i < line_print; i++)
+  {
+    for (int j = 0; j < num_iterations / line_print; j++)
+    {
+      for (Component *const &Component : net)
+      {
+        Component->changeVolt(time_step);
+      }
+    }
+    for (Component *const &Component : net)
+    {
+      cout << setw(6) << Component->getVolt() << setw(6) << Component->returnCurr();
+    }
+    cout << endl;
+  }
 }
-*/
+void deallocate_components(vector<Component *> net)
+{
+  for (Component *Component : net)
+  {
+    delete Component;
+  }
+}
+
+void initialCircuits(int argc, char **argv, int &num_iterations, int &line_print, double &time_step, double &batteryVolt)
+{
+  std::vector<std::string> args{argv, argv + argc};
+  if (args.size() != 6)
+    throw std::runtime_error("ERROR: THE NUMBER OF INPUT IS INCORRECT!");
+  else
+  {
+    num_iterations = std::stoi(args[2]);
+    line_print = std::stoi(args[3]);
+    time_step = std::stod(argv[4]);
+    batteryVolt = std::stod(argv[5]);
+    if (num_iterations < line_print)
+    {
+      throw std::runtime_error("ERROR: THE INPUT IS ILLEGAL!");
+    }
+  }
+}
