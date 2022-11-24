@@ -78,11 +78,10 @@ int main(int argc, char **argv)
     net.push_back(new Resistor("R4", 300.0, &l, &n));
     net.push_back(new Capacitor("C5", 0.75, &n, &r));
     simulate(net, num_iterations, line_print, time_step);
-    net.clear();
-    // deallocate_components(net); // can it be replaced by vector.clear()?
+    deallocate_components(net);
   }
   catch (const std::exception &e)
   {
-    std::cerr << e.what();
+    std::cerr << e.what()<<std::endl;
   }
 }
