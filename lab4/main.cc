@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 using namespace std;
+
 
 int main(int argc, char **argv)
 {
@@ -23,6 +23,8 @@ int main(int argc, char **argv)
       net.push_back(new Resistor("R2", 4.0, &r124, &a));
       net.push_back(new Resistor("R3", 8, &a, &n));
       net.push_back(new Resistor("R4", 12, &r124, &n));
+      simulate(net, num_iterations, line_print, time_step);
+    deallocate_components(net);
     }
     else if (std::stoi(argv[1]) == 2)
     {
@@ -33,6 +35,8 @@ int main(int argc, char **argv)
       net.push_back(new Resistor("R3", 100, &l, &r));
       net.push_back(new Resistor("R4", 300.0, &l, &n));
       net.push_back(new Resistor("R5", 250, &n, &r));
+      simulate(net, num_iterations, line_print, time_step);
+    deallocate_components(net);
     }
     else if (std::stoi(argv[1]) == 3)
     {
@@ -43,11 +47,12 @@ int main(int argc, char **argv)
       net.push_back(new Capacitor("C3", 1.0, &l, &r));
       net.push_back(new Resistor("R4", 300.0, &l, &n));
       net.push_back(new Capacitor("C5", 0.75, &n, &r));
+      simulate(net, num_iterations, line_print, time_step);
+    deallocate_components(net);
     }
     else
       throw std::runtime_error("ERROR: CIRCUITS NOT EXSIST!");
-    simulate(net, num_iterations, line_print, time_step);
-    deallocate_components(net);
+    
   }
   catch (const std::exception &e)
   {
