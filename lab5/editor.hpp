@@ -42,7 +42,7 @@ bool editor::checkArg(int argc, char **argv)
     throw std::runtime_error("Thank you for use!");
 }
 
-void editor::readFile(std::string file_name)//TODO
+void editor::readFile(std::string file_name) // TODO
 {
   std::ifstream read_file;
   read_file.open(file_name, std::ios::in);
