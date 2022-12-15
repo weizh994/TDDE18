@@ -17,17 +17,18 @@ private:
   std::vector<std::string> argument;
   std::string file_name;
   std::map<std::string, int> dictionary;
-  bool checkArg(int argc, char **argv); // Done
+  bool checkArg(int argc) const; // Done
   void executeArg(std::string Arg);
-  void readFile();                        // Done
-  void writeFile();                       // Done
-  int setLength();                        // Done
-  void createDictionary();                // Done
-  void print();                           // Done
-  void table();                           // Done
-  void frequency();                       // Done
-  void substitute(std::string parameter); // Done
-  void remove(std::string parameter);     // Done
+  void readArg(std::string &Arg,std::string &flag,std::string &parameter);
+  void readFile();                                             // Done
+  void writeFile();                                            // Done
+  int longestWord(std::vector<std::string> *const text) const; // Done
+  void createDictionary();                                     // Done
+  void print();                                                // Done
+  void table();                                                // Done
+  void frequency();                                            // Done
+  void substitute(std::string parameter);                      // Done
+  void remove(std::string parameter);                          // Done
 
 public:
   editor(int argc, char **argv);
