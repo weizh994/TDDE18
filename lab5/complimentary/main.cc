@@ -29,12 +29,14 @@ using namespace std;
 
 // TODO: Complementary work needed: You do not need to remove executed arguments. It is
 // enough to iterate over the vector.
+// I instead that by for_each()
 
 // Comment: Using createDictionary() when it is used should decrease the risk of forgetting
 // to call the function after changing the text. This becomes much safer if working with
 // a local dictionary that is returned rather than a class variable.
+// Now, I call createDictionary() before it be printed.
 
 int main(int argc, char **argv)
 {
-  editor t(argc, argv);
+  editor(argc, argv);
 }

@@ -1,0 +1,13 @@
+<data>
+<name>
+This is where the name of the document is
+<content>
+This is where the content goes
+it can span multiple line
+<inner>
+The content can contain more
+tags. Note that this entire
+file is supposed to be correct.
+</inner>
+</content>
+</data>

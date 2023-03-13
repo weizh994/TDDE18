@@ -4,17 +4,15 @@
 #include <vector>
 using namespace std;
 
-// TODO: Complementary work needed: Compiling your code with the  
-// "-Wall -Wextra -Wpedantic" flags should result in 0 warnings.      Done
-//
-// TODO: Complementary work needed: try/catch should only surround the                   
-// functions which can throw the exceptions (stod, stoi). If the inputted                
-// parameters are correct, the program should run without failure.                       
-// Hint: Make sure to stop the program in a correct way such as return N, where N != 0. 
-//  Done
-// TODO: Complementary work needed: Do not call stod/stoi for the same the same value
-// more than once.  Done
-//
+// TODO: Complementary work needed: Right now your program doesn't
+// compile. Make sure that it compiles with no errors and no warnings
+// when using the "-Wall -Wextra -Wpedantic" flags.
+
+Connection::Connection()
+{
+  Volt = 0;
+  can_change = true;
+}
 
 int main(int argc, char **argv)
 {
@@ -22,26 +20,23 @@ int main(int argc, char **argv)
   int line_print{0};
   double time_step{0.0};
   double batteryVolt{0.0};
-  int flag{std::stoi(argv[1])};
+  double StringtoInt{0.0};
+
+  initialCircuits(argc, argv, num_iterations, line_print, time_step, batteryVolt);
   vector<Component *> net;
-  cout << flag << endl;
   try
   {
-    if (flag != 1 && flag != 2 && flag != 3)
-    {
-      throw std::runtime_error("ERROR: CIRCUITS NOT EXSIST!\n");
-    }
-    initialCircuits(argc, argv,
-                    num_iterations, line_print,
-                    time_step, batteryVolt);
+    StringtoInt = std::stoi(argv[1]);
   }
-  catch (const std::exception &e)
+  catch (const std::invalid_argument &e)
   {
-    std::cerr << e.what() << std::endl;
-    return 1;
+    std::cout << e.what() << "\n";
   }
-
-  if (flag == 1)
+  catch (const std::out_of_range &e)
+  {
+    std::cout << e.what() << "\n";
+  }
+  if (StringtoInt == 1)
   {
     Connection p, r124, n, a;
     net.push_back(new Battery("Bat", batteryVolt, &p, &n));
@@ -52,7 +47,7 @@ int main(int argc, char **argv)
     simulate(net, num_iterations, line_print, time_step);
     deallocate_components(net);
   }
-  else if (flag == 2)
+  else if (StringtoInt == 2)
   {
     Connection p, l, r, n;
     net.push_back(new Battery("Bat", batteryVolt, &p, &n));
@@ -64,7 +59,7 @@ int main(int argc, char **argv)
     simulate(net, num_iterations, line_print, time_step);
     deallocate_components(net);
   }
-  else
+  else if (StringtoInt == 3)
   {
     Connection p, l, r, n;
     net.push_back(new Battery("Bat", batteryVolt, &p, &n));
@@ -75,5 +70,9 @@ int main(int argc, char **argv)
     net.push_back(new Capacitor("C5", 0.75, &n, &r));
     simulate(net, num_iterations, line_print, time_step);
     deallocate_components(net);
+  }
+  else
+  {
+    return -1;
   }
 }

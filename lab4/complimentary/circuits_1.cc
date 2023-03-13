@@ -1,21 +1,25 @@
-#include "circuits.hpp"
+#include "circuits_2.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
 #include <iomanip>
 using namespace std;
 
-Component::Component(const std::string &name, Connection *P, Connection *N)
-    : Name{name}, V_P{P}, V_N{N} {}
-
-std::string Component::returnName() const
+Connection::Connection()
 {
-  return Name;
+  Volt = 0;
+  can_change = true;
 }
 
+Component::Component(const std::string &name, Connection *P, Connection *N)
+    : Name{name}, V_P{P}, V_N{N} {}
 double Component::returnCurr() const
 {
   return 0.0;
+}
+std::string Component::returnName() const
+{
+  return Name;
 }
 
 double Component::getVolt() const
@@ -58,7 +62,7 @@ void Component::changeVolt(double time_step)
     V_P = temp;
   }
 }*/
-
+//       Battery(std::string const &name, double volt, Connection *P, Connection *N);
 Battery::Battery(std::string const &name, double volt, Connection *P, Connection *N)
     : Component{name, P, N}, Volt{volt}
 {
@@ -144,12 +148,14 @@ void simulate(vector<Component *> net, int num_iterations, int line_print, doubl
     cout << setw(12) << Component->returnName();
   }
   cout << endl;
-  for (size_t i = 0; i < net.size(); i++)
+  for (size_t i = 0; i < net.size(); i++) // changed from range based for loop to normal for loop
+  // for (Component *const &Component : net)
   {
     cout << right << setw(6) << "Volt" << right << setw(6) << "Curr";
   }
   cout << fixed << setprecision(2) << endl;
-  for (int i = 0; i < line_print; i++)
+
+  for (int i = 0; i < line_print; i++) // chnage size_t to  int since line_print is int
   {
     for (int j = 0; j < num_iterations / line_print; j++)
     {

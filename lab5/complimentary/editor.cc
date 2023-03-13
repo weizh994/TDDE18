@@ -7,16 +7,19 @@
 #include <fstream>
 #include <sstream>
 
-editor::editor(int argc, char **argv) : argument{argv + 2, argv + argc}
+void editor(int argc, char **argv)
 {
-
+  std::vector<std::string> argument{argv + 2, argv + argc};
+  std::vector<std::string> text;
   try
   {
-    checkArg(argc);
-    file_name = argv[1];
-    readFile();
-    createDictionary();
-    executeProgram(argument);
+    if (argc < 2)
+    {
+      throw std::runtime_error("Arguments are incorrect!\n");
+    }
+    std::string file_name = argv[1];
+    readFile(file_name, &text);
+    executeProgram(&argument, &text);
   }
   catch (const std::exception &e)
   {
@@ -24,29 +27,16 @@ editor::editor(int argc, char **argv) : argument{argv + 2, argv + argc}
   }
 }
 
-editor::~editor()
-{
-  // writeFile();
-}
-
-void editor::executeProgram(std::vector<std::string> &argument) // TODO
+void executeProgram(std::vector<std::string> *argument, std::vector<std::string> *text) // TODO
 {
   /*   argument.erase(std::remove_if(argument.begin(), argument.end(), [&](std::string Arg)
                                   { executeArg(Arg);return true; }),
                    argument.end()); */
-  std::for_each(argument.begin(), argument.end(), [&](std::string Arg)
-                { executeArg(Arg); });
+  std::for_each(argument->begin(), argument->end(), [&](std::string Arg)
+                { executeArg(Arg, text); });
 }
 
-void editor::checkArg(int argc) const
-{
-  if (argc < 2)
-  {
-    throw std::runtime_error("Arguments are incorrect!\n");
-  }
-}
-
-void editor::readArg(std::string const &Arg, std::string &flag, std::string &parameter)
+void readArg(std::string const &Arg, std::string &flag, std::string &parameter)
 {
   std::string NArg = Arg.substr(2);
   NArg.erase(std::remove_if(NArg.begin(),
@@ -57,8 +47,8 @@ void editor::readArg(std::string const &Arg, std::string &flag, std::string &par
   if (NArg.find('=') != std::string::npos)
   {
     int eqPlace{static_cast<int>(Arg.find('='))};
-    flag = NArg.substr(0, eqPlace);
-    parameter = NArg.substr(eqPlace + 1);
+    flag = NArg.substr(0, eqPlace - 2);
+    parameter = NArg.substr(eqPlace - 1);
   }
   else
   {
@@ -67,30 +57,30 @@ void editor::readArg(std::string const &Arg, std::string &flag, std::string &par
   }
 }
 
-void editor::executeArg(std::string const &Arg)
+void executeArg(std::string const &Arg, std::vector<std::string> *text)
 {
 
   std::string flag{}, parameter{};
   readArg(Arg, flag, parameter);
   if (flag == "print")
   {
-    print();
+    print(text);
   }
   else if (flag == "frequency")
   {
-    frequency();
+    frequency(text);
   }
   else if (flag == "table")
   {
-    table();
+    table(text);
   }
   else if (flag == "substitute")
   {
-    substitute(parameter);
+    substitute(parameter, text);
   }
   else if (flag == "remove")
   {
-    remove(parameter);
+    remove(parameter, text);
   }
   else
   {
@@ -98,7 +88,7 @@ void editor::executeArg(std::string const &Arg)
   }
 }
 
-void editor::readFile()
+void readFile(std::string const &file_name, std::vector<std::string> *text)
 {
   std::ifstream read_file(file_name);
   if (!read_file.is_open())
@@ -107,27 +97,27 @@ void editor::readFile()
   }
   copy(std::istream_iterator<std::string>(read_file),
        std::istream_iterator<std::string>(),
-       inserter(text, text.end()));
+       inserter(*text, text->end()));
 }
 
-void editor::writeFile()
+/* void writeFile()
 {
   std::ofstream output_file(file_name);
   std::ostream_iterator<std::string> output_iterator(output_file, " ");
-  std::copy(text.begin(), text.end(), output_iterator);
-}
+  std::copy(text->begin(), text->end(), output_iterator);
+} */
 
-void editor::createDictionary()
+void createDictionary(std::vector<std::string> *const text, std::map<std::string, int> *dictionary)
 {
-  dictionary.clear(); // Avoid repaeat count
-  std::transform(text.begin(), text.end(), std::inserter(dictionary, dictionary.end()),
+  dictionary->clear(); // Avoid repaeat count
+  std::transform(text->begin(), text->end(), std::inserter(*dictionary, dictionary->end()),
                  [&](std::string const &s)
                  {
-                   return std::make_pair(s, dictionary[s]++);
+                   return std::make_pair(s, (*dictionary)[s]++);
                  });
 }
 
-int editor::longestWord(std::vector<std::string> *const text) const
+int longestWord(std::vector<std::string> *const text)
 {
   int len{0};
   len = std::max_element(text->begin(), text->end(), [](std::string x, std::string y)
@@ -136,29 +126,32 @@ int editor::longestWord(std::vector<std::string> *const text) const
   return len;
 }
 
-void editor::print()
+void print(std::vector<std::string> *const text)
 {
-  std::copy(text.begin(), text.end(),
+  std::copy(text->begin(), text->end(),
             std::ostream_iterator<std::string>{std::cout, " "});
   std::cout << std::endl;
 }
 
-void editor::table()
+void table(std::vector<std::string> *const text)
 {
+  std::map<std::string, int> dictionary;
+  createDictionary(text, &dictionary);
   std::transform(dictionary.begin(), dictionary.end(),
                  std::ostream_iterator<std::string>{std::cout, "\n"}, [&](auto &pair)
                  { std::string str;
             str.append(pair.first);
-            str.append(longestWord(&text)-pair.first.length()+1,' ');
+            str.append(longestWord(text)-pair.first.length()+1,' ');
             str.append(std::to_string(pair.second));
                  return str; });
   std::cout << std::endl;
 }
 
-void editor::frequency()
+void frequency(std::vector<std::string> *const text)
 {
+  std::map<std::string, int> dictionary;
+  createDictionary(text, &dictionary);
   std::vector<std::pair<std::string, int>> vec;
-
   // copy key-value pairs from the map to the vector
   std::copy(dictionary.begin(),
             dictionary.end(),
@@ -180,7 +173,7 @@ void editor::frequency()
   std::transform(vec.begin(), vec.end(),
                  std::ostream_iterator<std::string>{std::cout, "\n"}, [&](auto &pair)
                  { std::string str;
-                 str.append(longestWord(&text)-pair.first.length(),' ');
+                 str.append(longestWord(text)-pair.first.length(),' ');
                  str.append(pair.first);
                  str.append(1,' ');
                  str.append(std::to_string(pair.second));
@@ -188,33 +181,32 @@ void editor::frequency()
   std::cout << std::endl;
 } // high cohesion,low coupling？
 
-void editor::substitute(std::string const &parameter)
+void substitute(std::string const &parameter, std::vector<std::string> *text)
 {
   if (parameter == "ERROR: No parameter!")
   {
     std::cerr << "ERROR: No parameter!\n";
     //  throw std::runtime_error(parameter);
   }
-  std::cout << parameter << std::endl;
   int addPlace{static_cast<int>(parameter.find('+'))};
   std::string oldWord{parameter.substr(0, addPlace)}, newWord{parameter.substr(addPlace + 1)}; // if there is no '+',oldWord==newWord
-  std::transform(text.begin(), text.end(), text.begin(), [&oldWord, &newWord](std::string str)
+  std::transform(text->begin(), text->end(), text->begin(), [&oldWord, &newWord](std::string str)
                  {if(str==oldWord){
                   str=newWord;
                  }
                  return str; });
-  createDictionary();
+  // createDictionary();
 }
 
-void editor::remove(std::string const &parameter)
+void remove(std::string const &parameter, std::vector<std::string> *text)
 {
   if (parameter == "ERROR: No parameter!")
   {
     std::cerr << "ERROR: No parameter!\n";
     // throw std::runtime_error(parameter);
   }
-  text.erase(std::remove_if(text.begin(), text.end(), [&parameter](std::string Rem)
-                            { return Rem == parameter; }),
-             text.end());
-  createDictionary();
+  text->erase(std::remove_if(text->begin(), text->end(), [&parameter](std::string Rem)
+                             { return Rem == parameter; }),
+              text->end());
+  // createDictionary();
 }

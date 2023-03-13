@@ -6,13 +6,10 @@
 #include <iostream>
 #include <initializer_list>
 
-// TODO: Complementary work needed: Declare member functions not
-// changing the state of the object as constant. // done
-
-// TODO: Complementary work: The comment above have led to some
-// compilation errors. Make sure that the functions in your .cc file
-// also are declared as const. And only use const where you are not
-// changing the object itself.
+// TODO: Complementary work needed: There is one function left, that
+// does not change the object, which should be set to const. (In your
+// last submission it was set to const, make sure that you hand in the
+// right version of your code.)
 
 struct Connection
 {

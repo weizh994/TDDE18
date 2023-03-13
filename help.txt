@@ -1,0 +1,94 @@
+head file: 
+#ifndef ???_H
+#define ???_H
+#endif
+
+class:
+class son : public father
+son::son(x,y,z): father{x,y},vir{z}{}
+class father{
+protected:
+}
+#TODO ini_list
+
+
+readFile:
+std::ifstream read_file(file_name);
+if (!read_file.is_open())
+std::vector<std::string> text {
+        std::istream_iterator<std::string>{file},
+        std::istream_iterator<std::string>{}
+    };
+
+std::vector<std::pair<std::string, int>> data{};
+  int Question, Score, Score_no_bonus;
+  std::string Player, Correct;
+  while (read_file >> Question >> Player >> Correct >> Score >> Score_no_bonus)
+  {
+    auto it = find_if(data.begin(), data.end(), [&](auto pair)
+                      { return (pair.first == Player); });
+    if (it == data.end())
+    {
+      auto temp = make_pair(Player, Score);
+      data.push_back(temp);
+    }
+    else
+    {
+      it->second += Score;
+    }
+  }
+  std::sort(data.begin(), data.end(),[](auto a,auto b){return a.second>b.second;});
+
+map<string, int> m{};
+vector<pair<string, int>> v{begin(m), end(m)};
+
+
+
+Algorithms:#TODO 
+input:
+vector<string> text { istream_iterator<string>{cin},
+                          istream_iterator<string>{} };
+output:
+std::copy(begin(), end(), std::ostream_iterator<std::string>{std::cout, " "});
+td::transform(vec.begin(), vec.end(),
+                 std::ostream_iterator<std::string>{std::cout, "\n"}, [&](auto &pair)
+                 { std::string str;
+                 ...
+                 return str; });
+
+throw:
+try{
+throw std::runtime_error("Cannot find the file!\n");
+}
+  catch (const std::exception &e)
+  {
+    std::cerr << e.what() << '\n';
+    return -1;
+  }
+try{
+    example = std::stod(argv[1]);
+} catch(std::exception& e){
+    std::cerr << "Error" << std::endl;
+    return -1;
+}
+
+
+Operator:#TODO 
+TIME &operator++(TIME &t);       //++i 
+TIME operator++(TIME &t, int);  //i++
+bool operator<(TIME const &t1, TIME const &t2);
+bool operator<(Card const &other) const
+istream &operator>>(istream &is, TIME &t);
+List &operator=(List const &rightList); //copy
+List &operator=(List &&rightList);      //move
+List(List const &otherList);           // copy constructor
+List(List &&otherList);                // move constructor;
+istream &operator>>(istream &is, TIME &t){
+is >> tmp.hour;
+return is;
+}
+friend ostream &operator<<(ostream &os, TIME const &t)
+{return (os << to_string(t));}
+
+Iomanip
+setw(width) | setfill(char) | setprecision(precision) | right | left
